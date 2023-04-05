@@ -12,14 +12,12 @@ import java.util.StringTokenizer;
 class Data{
     public String name;
     public int score;
-//    public String date;
     public Timestamp date;
 
     Data(String[] dataArray){
         this.name = dataArray[0];
         this.score = Integer.parseInt(dataArray[1]);
         this.date = Timestamp.valueOf(dataArray[2]);
-//        this.date = dataArray[2];
     }
 }
 
@@ -36,7 +34,7 @@ public class FileIO {
 
     //This method will read the data inside the file and store in the arraylist of objects of class data.
     public void GetFileData(Context fileContext) {
-        File file = fileContext.getFileStreamPath("D2.txt");
+        File file = fileContext.getFileStreamPath("A1.txt");
         if (file.exists())
         {
             try {
@@ -64,7 +62,7 @@ public class FileIO {
     public void WriteFileData(Context fileContext)
     {
         try {
-            FileOutputStream file = fileContext.openFileOutput("D2.txt", Activity.MODE_PRIVATE);
+            FileOutputStream file = fileContext.openFileOutput("A1.txt", Activity.MODE_PRIVATE);
             OutputStreamWriter outputFile = new OutputStreamWriter(file);
             String text;
             for (int i = 0; i < fileData.size(); i++) {

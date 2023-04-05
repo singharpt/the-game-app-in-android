@@ -2,11 +2,8 @@ package com.example.axs210204_asg5;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.sql.Timestamp;
-import java.time.Instant;
+import java.util.Date;
 
 public class ScoreDisplay extends AppCompatActivity {
 
@@ -20,11 +17,13 @@ public class ScoreDisplay extends AppCompatActivity {
         for (int i = 0; i < iobj.fileData.size(); i++) {
             System.out.println(iobj.fileData.get(i).name + "  " + iobj.fileData.get(i).score + "  " + iobj.fileData.get(i).date);
         }
-        iobj.AddData(new String[] {"f", "6", new Timestamp.from(Instant.now())});
-        iobj.AddData(new String[] {"g", "7", new Timestamp.from(Instant.now())});
-        iobj.AddData(new String[] {"h", "8", new Timestamp.from(Instant.now())});
-        iobj.AddData(new String[] {"i", "9", new Timestamp.from(Instant.now())});
-        iobj.AddData(new String[] {"j", "10", new Timestamp.from(Instant.now())});
+        Date date = new Date();
+        System.out.println(String.valueOf(new Timestamp(date.getTime())));
+        iobj.AddData(new String[] {"a", "1", String.valueOf(new Timestamp(date.getTime()))});
+        iobj.AddData(new String[] {"b", "2", String.valueOf(new Timestamp(date.getTime()))});
+        iobj.AddData(new String[] {"c", "3", String.valueOf(new Timestamp(date.getTime()))});
+        iobj.AddData(new String[] {"d", "4", String.valueOf(new Timestamp(date.getTime()))});
+        iobj.AddData(new String[] {"e", "5", String.valueOf(new Timestamp(date.getTime()))});
         System.out.println("/n/nAfter Adding Data /n");
         for (int i = 0; i < iobj.fileData.size(); i++) {
             System.out.println(iobj.fileData.get(i).name + "  " + iobj.fileData.get(i).score + "  " + iobj.fileData.get(i).date);
