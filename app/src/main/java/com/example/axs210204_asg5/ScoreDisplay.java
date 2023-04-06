@@ -5,20 +5,36 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-
 import java.sql.Timestamp;
+import java.util.Collections;
 import java.util.Date;
 
 public class ScoreDisplay extends AppCompatActivity {
 
     public static final int REQ_CODE = 100;
+    public static final FileIO iobj = new FileIO();
+    public static final Date date = new Date();
+
+    protected void onLoad(){
+
+        iobj.AddData(new String[] {"a", "1", String.valueOf(new Timestamp(date.getTime()+100000))});
+        iobj.AddData(new String[] {"b", "2", String.valueOf(new Timestamp(date.getTime()))});
+        iobj.AddData(new String[] {"b", "3", String.valueOf(new Timestamp(date.getTime()))});
+        iobj.AddData(new String[] {"a", "1", String.valueOf(new Timestamp(date.getTime()))});
+
+        Collections.sort(iobj.fileData, new DataComparator());
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score_display);
         setTitle("First Activity");
-
+        iobj.GetFileData(this.getApplicationContext());
+        onLoad();
+        for (DataSchema k: iobj.fileData) {
+            System.out.println(k.name + " " + k.score + " " + k.date);
+        }
         findViewById(R.id.addBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -26,6 +42,7 @@ public class ScoreDisplay extends AppCompatActivity {
                 startActivityForResult(intent, REQ_CODE);
             }
         });
+        iobj.WriteFileData(this.getApplicationContext());
     }
 
     @Override
