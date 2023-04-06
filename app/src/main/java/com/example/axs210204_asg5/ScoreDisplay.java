@@ -1,33 +1,42 @@
 package com.example.axs210204_asg5;
 
+import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+
 import java.sql.Timestamp;
 import java.util.Date;
 
 public class ScoreDisplay extends AppCompatActivity {
 
+    public static final int REQ_CODE = 100;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score_display);
-        FileIO iobj = new FileIO();
-        iobj.GetFileData(this.getApplicationContext());
-        System.out.println("Before Adding Data /n");
-        for (int i = 0; i < iobj.fileData.size(); i++) {
-            System.out.println(iobj.fileData.get(i).name + "  " + iobj.fileData.get(i).score + "  " + iobj.fileData.get(i).date);
+        setTitle("First Activity");
+
+        findViewById(R.id.addBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ScoreDisplay.this, ScoreEntry.class);
+                startActivityForResult(intent, REQ_CODE);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQ_CODE) {
+            if(resultCode == RESULT_OK){
+                if (data != null && data.getStringExtra(ScoreEntry.NEW_NAME) != null && data.getStringExtra(ScoreEntry.NEW_SCORE) != null && data.getStringExtra(ScoreEntry.NEW_DATE) != null) {
+                    System.out.println(data.getStringExtra(ScoreEntry.NEW_NAME) + "  " + data.getStringExtra(ScoreEntry.NEW_SCORE) + "  " + data.getStringExtra(ScoreEntry.NEW_DATE));
+                }
+            }
         }
-        Date date = new Date();
-        System.out.println(String.valueOf(new Timestamp(date.getTime())));
-        iobj.AddData(new String[] {"a", "1", String.valueOf(new Timestamp(date.getTime()))});
-        iobj.AddData(new String[] {"b", "2", String.valueOf(new Timestamp(date.getTime()))});
-        iobj.AddData(new String[] {"c", "3", String.valueOf(new Timestamp(date.getTime()))});
-        iobj.AddData(new String[] {"d", "4", String.valueOf(new Timestamp(date.getTime()))});
-        iobj.AddData(new String[] {"e", "5", String.valueOf(new Timestamp(date.getTime()))});
-        System.out.println("/n/nAfter Adding Data /n");
-        for (int i = 0; i < iobj.fileData.size(); i++) {
-            System.out.println(iobj.fileData.get(i).name + "  " + iobj.fileData.get(i).score + "  " + iobj.fileData.get(i).date);
-        }
-        iobj.WriteFileData(this.getApplicationContext());
     }
 }

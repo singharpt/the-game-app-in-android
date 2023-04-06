@@ -23,7 +23,6 @@ class Data{
 
 public class FileIO {
     //Constructor for the FileIO Class
-    //Creates a file name "IOFile.txt" @ current project directory inside folder names IO
     File path;
     String filename;
     File file;
