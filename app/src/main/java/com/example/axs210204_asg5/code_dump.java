@@ -5,3 +5,28 @@
 //System.out.println(String.valueOf(new Timestamp(date.getTime())));
 //iobj.AddData(new String[] {"a", "1", String.valueOf(new Timestamp(date.getTime()))});
 //iobj.WriteFileData(this.getApplicationContext());
+
+//<include
+//        android:id="@+id/include"
+//                layout="@layout/custom_actionbar_scoreentry" />
+
+//<!--    <EditText-->
+//<!--        android:id="@+id/textView1"-->
+//<!--        android:layout_width="wrap_content"-->
+//<!--        android:layout_height="wrap_content"-->
+//<!--        android:layout_centerVertical="true"-->
+//<!--        android:text="Enter Name" />-->
+//
+//<!--    <EditText-->
+//<!--        android:id="@+id/textView2"-->
+//<!--        android:layout_width="wrap_content"-->
+//<!--        android:layout_height="wrap_content"-->
+//<!--        android:layout_centerVertical="true"-->
+//<!--        android:text="Enter Score" />-->
+//
+//<!--    <EditText-->
+//<!--        android:id="@+id/textView3"-->
+//<!--        android:layout_width="wrap_content"-->
+//<!--        android:layout_height="wrap_content"-->
+//<!--        android:layout_centerVertical="true"-->
+//<!--        android:text="2023-04-07 19:29:41.735" />-->

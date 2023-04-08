@@ -20,11 +20,10 @@ public class ScoreEntry extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score_entry);
-        setTitle("Second Activity");
 
-        nameToSend = findViewById(R.id.textView1);
-        scoreToSend = findViewById(R.id.textView2);
-        dateToSend = findViewById(R.id.textView3);
+        nameToSend = findViewById(R.id.eTextScore);
+        scoreToSend = findViewById(R.id.eTextScore);
+        dateToSend = findViewById(R.id.eTextName);
 
         findViewById(R.id.saveBtn).setOnClickListener(new View.OnClickListener() {
             @Override

@@ -6,23 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".ScoreDisplay"
     android:orientation="vertical">
-
-    <Button
-        android:id="@+id/addBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="27dp" />
-
+    <include layout="@layout/custom_actionbar_scoredisplay"/>
     <ListView
         android:id="@+id/mainlistView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="87dp" />
-
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:dividerHeight="10.0sp"
+        android:divider="@android:color/transparent" />
 </LinearLayout>

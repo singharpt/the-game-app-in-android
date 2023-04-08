@@ -11,7 +11,6 @@ import java.util.Date;
 import java.util.List;
 
 public class ScoreDisplay extends AppCompatActivity {
-
     public static final int REQ_CODE = 100;
     public static final FileIO iobj = new FileIO();
     public static final Date date = new Date();
@@ -22,16 +21,13 @@ public class ScoreDisplay extends AppCompatActivity {
         // Get the first 20 elements of the dataArray
         List<DataSchema> firstTwenty = iobj.fileData.subList(0, Math.min(iobj.fileData.size(), 2));
         ArrayList<DataSchema> newList = new ArrayList<>(firstTwenty);
-        UsersAdapter listViewAdapter = new UsersAdapter(getApplicationContext(), newList);
+        CustomAdapter listViewAdapter = new CustomAdapter(getApplicationContext(), newList);
         listView.setAdapter(listViewAdapter);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score_display);
-
-        //Set the name of the first activity
-        setTitle("First Activity");
 
         //Get data from the text file, if present
         iobj.GetFileData(this.getApplicationContext());
