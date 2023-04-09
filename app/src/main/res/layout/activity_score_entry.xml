@@ -14,9 +14,10 @@
         android:layout_width="352dp"
         android:layout_height="56dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="128dp"
+        android:layout_marginTop="96dp"
         android:layout_marginEnd="32dp"
         android:hint="Name"
+        app:boxBackgroundMode="outline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +26,13 @@
         <android.support.design.widget.TextInputEditText
             android:id="@+id/eTextName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:drawableStart="@drawable/baseline_person_4_24"
+            android:drawablePadding="10dp"
+            android:fadingEdge="horizontal"
+            android:fontFamily="sans-serif"
+            android:paddingStart="20dp" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -36,6 +43,7 @@
         android:layout_marginTop="28dp"
         android:layout_marginEnd="32dp"
         android:hint="Score"
+        app:boxBackgroundMode="outline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +52,10 @@
         <android.support.design.widget.TextInputEditText
             android:id="@+id/eTextScore"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/outline_games_24"
+            android:drawablePadding="10dp"
+            android:paddingStart="20dp" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -55,6 +66,7 @@
         android:layout_marginTop="28dp"
         android:layout_marginEnd="32dp"
         android:hint="Date"
+        app:boxBackgroundMode="outline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,6 +76,10 @@
             android:id="@+id/eTextDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:drawableStart="@drawable/outline_calendar_month_24"
+            android:drawablePadding="10dp"
+            android:inputType="datetime"
+            android:paddingStart="20dp"
             android:text="2023-04-07 19:29:41.735" />
     </android.support.design.widget.TextInputLayout>
 
