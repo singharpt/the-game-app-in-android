@@ -19,7 +19,7 @@ public class ScoreDisplay extends AppCompatActivity {
         listView = findViewById(R.id.mainlistView);
         Collections.sort(iobj.fileData, new DataComparator());
         // Get the first 20 elements of the dataArray
-        List<DataSchema> firstTwenty = iobj.fileData.subList(0, Math.min(iobj.fileData.size(), 2));
+        List<DataSchema> firstTwenty = iobj.fileData.subList(0, Math.min(iobj.fileData.size(), 20));
         ArrayList<DataSchema> newList = new ArrayList<>(firstTwenty);
         CustomAdapter listViewAdapter = new CustomAdapter(getApplicationContext(), newList);
         listView.setAdapter(listViewAdapter);
@@ -53,9 +53,8 @@ public class ScoreDisplay extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQ_CODE) {
             if(resultCode == RESULT_OK){
-                if (data != null && data.getStringExtra(ScoreEntry.NEW_NAME) != null && data.getStringExtra(ScoreEntry.NEW_SCORE) != null && data.getStringExtra(ScoreEntry.NEW_DATE) != null) {
-                    //System.out.println(data.getStringExtra(ScoreEntry.NEW_NAME) + "  " + data.getStringExtra(ScoreEntry.NEW_SCORE) + "  " + data.getStringExtra(ScoreEntry.NEW_DATE));
-                    iobj.AddData(new String[] {data.getStringExtra(ScoreEntry.NEW_NAME), data.getStringExtra(ScoreEntry.NEW_SCORE), data.getStringExtra(ScoreEntry.NEW_DATE)});
+                if (data != null && data.getStringExtra(ScoreEntry.NEW_NAME) != null && data.getStringExtra(ScoreEntry.NEW_SCORE) != null && data.getStringExtra(ScoreEntry.NEW_DATETIME) != null) {
+                    iobj.AddData(new String[] {data.getStringExtra(ScoreEntry.NEW_NAME), data.getStringExtra(ScoreEntry.NEW_SCORE), data.getStringExtra(ScoreEntry.NEW_DATETIME)});
                     onLoad();
                     iobj.WriteFileData(this.getApplicationContext());
                 }

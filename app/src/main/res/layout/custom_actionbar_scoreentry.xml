@@ -38,7 +38,8 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:src="@drawable/outline_save_24"
-            android:tooltipText="Add Score"/>
+            android:tooltipText="Add Score"
+            android:visibility="visible" />
 
     </RelativeLayout>
 </RelativeLayout>

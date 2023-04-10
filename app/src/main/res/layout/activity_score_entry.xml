@@ -11,15 +11,20 @@
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/layoutName"
-        android:layout_width="352dp"
-        android:layout_height="56dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="96dp"
         android:layout_marginEnd="32dp"
         android:hint="Name"
-        app:boxBackgroundMode="outline"
+        app:counterEnabled="true"
+        app:counterMaxLength="25"
+        app:errorEnabled="true"
+        app:helperText="Required*"
+        app:helperTextEnabled="true"
+        app:hintAnimationEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -32,20 +37,20 @@
             android:drawablePadding="10dp"
             android:fadingEdge="horizontal"
             android:fontFamily="sans-serif"
-            android:paddingStart="20dp" />
+            android:maxLength="25" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/layoutScore"
-        android:layout_width="352dp"
-        android:layout_height="56dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="32dp"
         android:hint="Score"
-        app:boxBackgroundMode="outline"
+        app:helperText="Score > 0 Required*"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layoutName">
 
@@ -54,34 +59,58 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/outline_games_24"
-            android:drawablePadding="10dp"
-            android:paddingStart="20dp" />
+            android:drawablePadding="10dp" />
     </android.support.design.widget.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/layoutDate"
-        android:layout_width="352dp"
-        android:layout_height="56dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/layoutScore"
         android:layout_marginStart="32dp"
         android:layout_marginTop="28dp"
-        android:layout_marginEnd="32dp"
-        android:hint="Date"
-        app:boxBackgroundMode="outline"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layoutScore">
+        android:layout_marginEnd="32dp">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/layoutDate"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="160dp"
+            android:layout_marginEnd="20dp"
+            android:hint="Date"
+            app:helperText="Required*"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutScore">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/eTextDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/outline_calendar_month_24"
+                android:drawablePadding="10dp"
+                android:text="2023/01/01" />
+
+        </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/layoutTime"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:hint="Time"
+        app:helperText="Required*"
+        app:layout_constraintStart_toEndOf="@id/layoutDate">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/eTextDate"
+            android:id="@+id/eTextTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/outline_calendar_month_24"
+            android:drawableStart="@drawable/outline_access_time_24"
             android:drawablePadding="10dp"
-            android:inputType="datetime"
-            android:paddingStart="20dp"
-            android:text="2023-04-07 19:29:41.735" />
+            android:text="11:11" />
+
     </android.support.design.widget.TextInputLayout>
-
-
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

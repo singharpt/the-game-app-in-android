@@ -30,3 +30,13 @@
 //<!--        android:layout_height="wrap_content"-->
 //<!--        android:layout_centerVertical="true"-->
 //<!--        android:text="2023-04-07 19:29:41.735" />-->
+
+//<android.support.design.widget.TextInputEditText
+//        android:id="@+id/eTextDate"
+//        android:layout_width="match_parent"
+//        android:layout_height="wrap_content"
+//        android:drawableStart="@drawable/outline_calendar_month_24"
+//        android:drawablePadding="10dp"
+//        android:inputType="text"
+//        android:paddingStart="20dp"
+//        android:text="2023-04-07 19:29:41.735" />

@@ -21,7 +21,7 @@ public class FileIO {
 
     //This method will read the data inside the file and store in the arraylist of objects of class data.
     public void GetFileData(Context fileContext) {
-        File file = fileContext.getFileStreamPath("A3.txt");
+        File file = fileContext.getFileStreamPath("dataFile.txt");
         if (file.exists())
         {
             try {
@@ -49,7 +49,7 @@ public class FileIO {
     public void WriteFileData(Context fileContext)
     {
         try {
-            FileOutputStream file = fileContext.openFileOutput("A3.txt", Activity.MODE_PRIVATE);
+            FileOutputStream file = fileContext.openFileOutput("dataFile.txt", Activity.MODE_PRIVATE);
             OutputStreamWriter outputFile = new OutputStreamWriter(file);
             String text;
             for (int i = 0; i < fileData.size(); i++) {
