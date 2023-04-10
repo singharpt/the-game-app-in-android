@@ -12,7 +12,10 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TimePicker;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 
 public class ScoreEntry extends AppCompatActivity {
     public static final String NEW_NAME = "name";
@@ -26,26 +29,41 @@ public class ScoreEntry extends AppCompatActivity {
     TextInputLayout scoreLayout;
     TextInputLayout dateLayout;
     TextInputLayout timeLayout;
+    Calendar cal = Calendar.getInstance();
+
+    private void saveBtnVisibility() {
+        if (nameLayout.getHelperText() == "Satisfied" && scoreLayout.getHelperText() == "Satisfied") {
+            findViewById(R.id.saveBtn).setVisibility(View.VISIBLE);
+        }
+        else {
+            findViewById(R.id.saveBtn).setVisibility(View.INVISIBLE);
+        }
+    }
+    private String checkDigit(int number) {
+        return number <= 9 ? "0" + number : String.valueOf(number);
+    }
     private void openDateDialog() {
         DatePickerDialog dateDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth)  {
-                String text = String.valueOf(year) + "/" + String.valueOf(month+1) + "/" + String.valueOf(dayOfMonth);
+                String text = checkDigit(year) + "/" + checkDigit(month+1) + "/" + checkDigit(dayOfMonth);
                 dateToSend.setText(text);
             }
-        }, 2023, 0, 1);
+        }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+        dateDialog.getDatePicker().setMaxDate(cal.getInstance().getTimeInMillis());
         dateDialog.show();
     }
     private void openTimeDialog() {
         TimePickerDialog timeDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener(){
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int min) {
-                String text = String.valueOf(hour)+ ":" + String.valueOf(min);
+                String text = checkDigit(hour)+ ":" + checkDigit(min);
                 timeToSend.setText(text);
             }
-        }, 0, 0, true);
+        }, cal.get(Calendar.HOUR), cal.get(Calendar.HOUR), true);
         timeDialog.show();
     }
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +77,31 @@ public class ScoreEntry extends AppCompatActivity {
         scoreLayout = findViewById(R.id.layoutScore);
         dateLayout = findViewById(R.id.layoutDate);
         timeLayout = findViewById(R.id.layoutTime);
+        dateToSend.setText(checkDigit(cal.get(Calendar.YEAR))+"/"+checkDigit(cal.get(Calendar.MONTH)+1)+"/"+checkDigit(cal.get(Calendar.DAY_OF_MONTH)));
+        timeToSend.setText(checkDigit(cal.get(Calendar.HOUR))+":"+checkDigit(cal.get(Calendar.MINUTE)));
+        DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("yyyy/M/d H:m");
+        DateTimeFormatter timeformatter = DateTimeFormatter.ofPattern("H:m");
+        findViewById(R.id.saveBtn).setVisibility(View.INVISIBLE);
+
+        nameToSend.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                String name = nameToSend.getText().toString();
+                if (b) {
+                    nameLayout.setHelperText("Enter name");
+                }
+                else {
+                    if (name.isEmpty()) {
+                        nameLayout.setHelperText("");
+                        nameLayout.setError("Name field can't be left empty!");
+                    }
+                    else {
+                        nameLayout.setHelperText("Satisfied");
+                    }
+                }
+                saveBtnVisibility();
+            }
+        });
         scoreToSend.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -75,15 +118,25 @@ public class ScoreEntry extends AppCompatActivity {
                     checkFlag = false;
                 }
                 if (checkFlag && scoreValue > 0) {
-                    scoreLayout.setError("");
-                    scoreLayout.setHelperText("");
+                    scoreLayout.setHelperText("Satisfied");
                 }
                 else {
+                    scoreLayout.setHelperText("");
                     scoreLayout.setError("Enter only digits greater than 0");
                 }
+                saveBtnVisibility();
             }
             @Override
             public void afterTextChanged(Editable editable) {
+            }
+        });
+        dateToSend.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                //has focus
+                if (b) {
+                    openDateDialog();
+                }
             }
         });
         dateToSend.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +151,15 @@ public class ScoreEntry extends AppCompatActivity {
                 openTimeDialog();
             }
         });
-        //findViewById(R.id.saveBtn).setVisibility(View.INVISIBLE);
+        timeToSend.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                //has focus
+                if (b) {
+                    openTimeDialog();
+                }
+            }
+        });
         findViewById(R.id.saveBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

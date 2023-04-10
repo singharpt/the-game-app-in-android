@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class CustomAdapter extends ArrayAdapter<DataSchema> {
         TextView name;
         TextView score;
         TextView date;
-        TextView rank;
+        ImageView rank;
     }
 
     public CustomAdapter(Context context, ArrayList<DataSchema> users) {
@@ -36,7 +37,7 @@ public class CustomAdapter extends ArrayAdapter<DataSchema> {
             viewHolder.name = (TextView) convertView.findViewById(R.id.tvName);
             viewHolder.score = (TextView) convertView.findViewById(R.id.tvScore);
             viewHolder.date = (TextView) convertView.findViewById(R.id.tvDate);
-            viewHolder.rank = (TextView) convertView.findViewById(R.id.tvRank);
+            viewHolder.rank = (ImageView) convertView.findViewById(R.id.tvRank);
             // Cache the viewHolder object inside the fresh view
             convertView.setTag(viewHolder);
         } else {
@@ -49,7 +50,52 @@ public class CustomAdapter extends ArrayAdapter<DataSchema> {
         viewHolder.name.setText(data.name);
         viewHolder.score.setText(String.valueOf(data.score));
         viewHolder.date.setText(String.valueOf(data.date));
-        viewHolder.rank.setText(String.valueOf(position+1));
+
+        //viewHolder.rank.setText(String.valueOf(position+1));
+        switch (position) {
+            case 0 : viewHolder.rank.setImageResource(R.drawable.medal_gold_winner_2_svgrepo_com);
+                     break;
+            case 1 : viewHolder.rank.setImageResource(R.drawable.medal_silver_badge_svgrepo_com);
+                     break;
+            case 2 : viewHolder.rank.setImageResource(R.drawable.medal_bronze_prize_svgrepo_com);
+                break;
+            case 3 : viewHolder.rank.setImageResource(R.drawable.ic_launcher_4_foreground);
+                break;
+            case 4 : viewHolder.rank.setImageResource(R.drawable.ic_launcher_5_foreground);
+                break;
+            case 5 : viewHolder.rank.setImageResource(R.drawable.ic_launcher_6_foreground);
+                break;
+            case 6 : viewHolder.rank.setImageResource(R.drawable.ic_launcher_7_foreground);
+                break;
+            case 7 : viewHolder.rank.setImageResource(R.drawable.ic_launcher_8_foreground);
+                break;
+            case 8 : viewHolder.rank.setImageResource(R.drawable.ic_launcher_9_foreground);
+                break;
+            case 9 : viewHolder.rank.setImageResource(R.drawable.ic_launcher_foreground_10);
+                break;
+            case 10 : viewHolder.rank.setImageResource(R.drawable.ic_launcher_foreground_11);
+                break;
+            case 11 : viewHolder.rank.setImageResource(R.drawable.ic_launcher_12_foreground);
+                break;
+            case 12 : viewHolder.rank.setImageResource(R.drawable.ic_launcher_13_foreground);
+                break;
+            case 13 : viewHolder.rank.setImageResource(R.drawable.ic_launcher_14_foreground);
+                break;
+            case 14 : viewHolder.rank.setImageResource(R.drawable.ic_launcher_15_foreground);
+                break;
+            case 15 : viewHolder.rank.setImageResource(R.drawable.ic_launcher_16_foreground);
+                break;
+            case 16 : viewHolder.rank.setImageResource(R.drawable.ic_launcher_17_foreground);
+                break;
+            case 17 : viewHolder.rank.setImageResource(R.drawable.ic_launcher_18_foreground);
+                break;
+            case 18 : viewHolder.rank.setImageResource(R.drawable.ic_launcher_19_foreground);
+                break;
+            case 19 : viewHolder.rank.setImageResource(R.drawable.ic_launcher_20_foreground);
+                break;
+            default : break;
+        }
+        //viewHolder.rank.setImageResource(R.drawable.medal_gold_winner_2_svgrepo_com);
 
         // Return the completed view to render on screen
         return convertView;

@@ -31,6 +31,8 @@ public class ScoreDisplay extends AppCompatActivity {
 
         //Get data from the text file, if present
         iobj.GetFileData(this.getApplicationContext());
+//        iobj.fileData.removeAll(iobj.fileData);
+//        iobj.WriteFileData(this.getApplicationContext());
 
         //The current load function will load data in the list
         onLoad();

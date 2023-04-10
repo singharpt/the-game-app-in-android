@@ -40,3 +40,17 @@
 //        android:inputType="text"
 //        android:paddingStart="20dp"
 //        android:text="2023-04-07 19:29:41.735" />
+
+//<TextView
+//        android:id="@+id/tvRank"
+//                style="@android:style/Widget.Material.Light.TextView"
+//                android:layout_width="30dp"
+//                android:layout_height="wrap_content"
+//                android:layout_alignParentStart="true"
+//                android:text="Rank"
+//                android:layout_marginTop="3dp"
+//                android:layout_marginStart="20dp"
+//                android:textAllCaps="true"
+//                android:textAppearance="@style/CardView"
+//                android:textSize="16dp"
+//                android:textFontWeight="600"/>
