@@ -54,3 +54,6 @@
 //                android:textAppearance="@style/CardView"
 //                android:textSize="16dp"
 //                android:textFontWeight="600"/>
+
+//    DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("M/d/yyyy H:m");
+//    DateTimeFormatter timeformatter = DateTimeFormatter.ofPattern("H:m");

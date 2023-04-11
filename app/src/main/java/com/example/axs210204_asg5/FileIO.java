@@ -1,24 +1,31 @@
 package com.example.axs210204_asg5;
-
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.StringTokenizer;
-
+/**
+ * --> Written by Arpit Singh for class CS 6326, assignment 5 - The Android App. Net Id - AXS210204 <--
+ * The following class: FIleIO does the following: -
+ * 1. Instantiates an ArrayList of Object called fileData.
+ * 2. Contains method GetFileData which gets the text data from storage, reads it, and adds the content in fileData.
+ * 3. Contains method AddFileData which adds more items to the fileData.
+ * 4. Contains method WriteFileData which writes the elements of fileData to the text file.
+ */
 public class FileIO {
-    //Constructor for the FileIO Class
-    File path;
-    String filename;
-    File file;
-    ArrayList<DataSchema> fileData;
+    public ArrayList<DataSchema> fileData;
+    Context context;
+
+    //Contructor for the class FileIO
     FileIO() {
         fileData = new ArrayList<DataSchema>();
     }
 
-    //This method will read the data inside the file and store in the arraylist of objects of class data.
+    //This method will read the data inside the text file "dataFile.txt" and store it in the arraylist of objects fileData
     public void GetFileData(Context fileContext) {
         File file = fileContext.getFileStreamPath("dataFile.txt");
         if (file.exists())
@@ -44,7 +51,7 @@ public class FileIO {
         fileData.add(new DataSchema(data));
     }
 
-    //This method will write the data inside the file
+    //This method will write the data inside the text file "dataFile.txt"
     public void WriteFileData(Context fileContext)
     {
         try {

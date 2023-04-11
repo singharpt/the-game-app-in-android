@@ -1,5 +1,4 @@
 package com.example.axs210204_asg5;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,25 +11,22 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+/**
+ * --> Written by Arpit Singh for class CS 6326, assignment 5 - The Android App. Net Id - AXS210204 <--
+ * The following class: CustomeAdapter does the following: -
+ * 1. It gets the ArrayList of objects fileData as an argument when object of this class is instantiated.
+ * 2. It gets the text view and image view elements present on the score display screen.
+ * 3. It sets the texts and images to the respective text views and image view using appropriate data.
+ * 4. It renders the whole view on the screen.
+ */
 public class CustomAdapter extends ArrayAdapter<DataSchema> {
-    // View lookup cache
+
     private static class ViewHolder {
         TextView name;
         TextView score;
         TextView date;
         ImageView rank;
     }
-
-//    private String getTime(String idate) {
-//        Format formatter = new SimpleDateFormat("hh:mm a");
-//        String date = idate.split(" ")[0];
-//        String time = idate.split(" ")[1];
-//        Integer hr = Integer.parseInt(time.split(":")[0]);
-//        Integer min = Integer.parseInt(time.split(":")[1]);
-//        Time tme = new Time(hr, min, 0);
-//        String newTime = formatter.format(tme);
-//        return date+" @"+newTime;
-//    }
 
     public CustomAdapter(Context context, ArrayList<DataSchema> users) {
         super(context, R.layout.custom_listview_layout, users);
@@ -57,16 +53,14 @@ public class CustomAdapter extends ArrayAdapter<DataSchema> {
             // View is being recycled, retrieve the viewHolder object from tag
             viewHolder = (ViewHolder) convertView.getTag();
         }
+
         // Populate the data from the data object via the viewHolder object
         // into the template view.
-
         viewHolder.name.setText(data.name);
         viewHolder.score.setText(String.valueOf(data.score));
         viewHolder.date.setText(String.valueOf(data.date));
-        //String newDateTime = getTime(String.valueOf(data.date));
-        //viewHolder.date.setText(newDateTime);
 
-        //viewHolder.rank.setText(String.valueOf(position+1));
+        // The switch case displays the respective image icon in the rank column on the screen.
         switch (position) {
             case 0 : viewHolder.rank.setImageResource(R.drawable.medal_gold_winner_2_svgrepo_com);
                      break;
@@ -110,8 +104,6 @@ public class CustomAdapter extends ArrayAdapter<DataSchema> {
                 break;
             default : break;
         }
-        //viewHolder.rank.setImageResource(R.drawable.medal_gold_winner_2_svgrepo_com);
-
         // Return the completed view to render on screen
         return convertView;
     }
