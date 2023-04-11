@@ -12,7 +12,6 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TimePicker;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
@@ -41,7 +40,7 @@ public class ScoreEntry extends AppCompatActivity {
         DatePickerDialog dateDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth)  {
-                String text = checkDigit(year) + "/" + checkDigit(month+1) + "/" + checkDigit(dayOfMonth);
+                String text = checkDigit(month+1) + "/" + checkDigit(dayOfMonth) + "/" + checkDigit(year);
                 dateToSend.setText(text);
             }
         }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
@@ -71,9 +70,9 @@ public class ScoreEntry extends AppCompatActivity {
         scoreLayout = findViewById(R.id.layoutScore);
         dateLayout = findViewById(R.id.layoutDate);
         timeLayout = findViewById(R.id.layoutTime);
-        dateToSend.setText(checkDigit(cal.get(Calendar.YEAR))+"/"+checkDigit(cal.get(Calendar.MONTH)+1)+"/"+checkDigit(cal.get(Calendar.DAY_OF_MONTH)));
+        dateToSend.setText(checkDigit(cal.get(Calendar.MONTH)+1)+"/"+checkDigit(cal.get(Calendar.DAY_OF_MONTH))+"/"+checkDigit(cal.get(Calendar.YEAR)));
         timeToSend.setText(checkDigit(cal.get(Calendar.HOUR))+":"+checkDigit(cal.get(Calendar.MINUTE)));
-        DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("yyyy/M/d H:m");
+        DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("M/d/yyyy H:m");
         DateTimeFormatter timeformatter = DateTimeFormatter.ofPattern("H:m");
         findViewById(R.id.saveBtn).setVisibility(View.INVISIBLE);
         nameToSend.setOnFocusChangeListener(new View.OnFocusChangeListener() {
