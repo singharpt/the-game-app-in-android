@@ -13,6 +13,10 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
+
+import java.sql.Time;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 
@@ -35,7 +39,14 @@ public class ScoreEntry extends AppCompatActivity {
         }
         else { findViewById(R.id.saveBtn).setVisibility(View.INVISIBLE); }
     }
+    private String getTime(int hr,int min) {
+        Time tme = new Time(hr,min,0);//seconds by default set to zero
+        Format formatter;
+        formatter = new SimpleDateFormat("hh:mm a");
+        return formatter.format(tme);
+    }
     private String checkDigit(int number) { return number <= 9 ? "0" + number : String.valueOf(number); }
+    private String checkAMPM(int number) { return number == 0 ? "AM" : "PM"; }
     private void openDateDialog() {
         DatePickerDialog dateDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -51,7 +62,7 @@ public class ScoreEntry extends AppCompatActivity {
         TimePickerDialog timeDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener(){
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int min) {
-                String text = checkDigit(hour)+ ":" + checkDigit(min);
+                String text = getTime(hour, min);
                 timeToSend.setText(text);
             }
         }, cal.get(Calendar.HOUR), cal.get(Calendar.HOUR), true);
@@ -71,7 +82,7 @@ public class ScoreEntry extends AppCompatActivity {
         dateLayout = findViewById(R.id.layoutDate);
         timeLayout = findViewById(R.id.layoutTime);
         dateToSend.setText(checkDigit(cal.get(Calendar.MONTH)+1)+"/"+checkDigit(cal.get(Calendar.DAY_OF_MONTH))+"/"+checkDigit(cal.get(Calendar.YEAR)));
-        timeToSend.setText(checkDigit(cal.get(Calendar.HOUR))+":"+checkDigit(cal.get(Calendar.MINUTE)));
+        timeToSend.setText(checkDigit(cal.get(Calendar.HOUR))+":"+checkDigit(cal.get(Calendar.MINUTE))+" "+checkAMPM(cal.get(Calendar.AM_PM)));
         DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("M/d/yyyy H:m");
         DateTimeFormatter timeformatter = DateTimeFormatter.ofPattern("H:m");
         findViewById(R.id.saveBtn).setVisibility(View.INVISIBLE);

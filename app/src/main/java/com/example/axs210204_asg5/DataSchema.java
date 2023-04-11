@@ -22,8 +22,8 @@ class DataComparator implements Comparator<DataSchema> {
         int result = Integer.compare(obj2.score, obj1.score);
         // if the int values are equal, compare by the datetime value in ascending order
         if (result == 0) {
-            LocalDateTime date1 = LocalDateTime.parse(obj1.date, formatter);
-            LocalDateTime date2 = LocalDateTime.parse(obj2.date, formatter);
+            LocalDateTime date1 = LocalDateTime.parse(obj1.date.split(" ")[0] + " " + obj1.date.split(" ")[1], formatter);
+            LocalDateTime date2 = LocalDateTime.parse(obj2.date.split(" ")[0] + " " + obj2.date.split(" ")[1], formatter);
             result = date2.compareTo(date1);
         }
         return result;

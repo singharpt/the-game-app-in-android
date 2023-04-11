@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-
 /**
  * The ScoreDisplay class deals with showcasing the data in a list on the main activity --> ScoreDisplay - activity_score_display.xml
  *

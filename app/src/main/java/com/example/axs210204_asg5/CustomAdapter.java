@@ -7,7 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import java.sql.Time;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class CustomAdapter extends ArrayAdapter<DataSchema> {
@@ -18,6 +20,17 @@ public class CustomAdapter extends ArrayAdapter<DataSchema> {
         TextView date;
         ImageView rank;
     }
+
+//    private String getTime(String idate) {
+//        Format formatter = new SimpleDateFormat("hh:mm a");
+//        String date = idate.split(" ")[0];
+//        String time = idate.split(" ")[1];
+//        Integer hr = Integer.parseInt(time.split(":")[0]);
+//        Integer min = Integer.parseInt(time.split(":")[1]);
+//        Time tme = new Time(hr, min, 0);
+//        String newTime = formatter.format(tme);
+//        return date+" @"+newTime;
+//    }
 
     public CustomAdapter(Context context, ArrayList<DataSchema> users) {
         super(context, R.layout.custom_listview_layout, users);
@@ -50,6 +63,8 @@ public class CustomAdapter extends ArrayAdapter<DataSchema> {
         viewHolder.name.setText(data.name);
         viewHolder.score.setText(String.valueOf(data.score));
         viewHolder.date.setText(String.valueOf(data.date));
+        //String newDateTime = getTime(String.valueOf(data.date));
+        //viewHolder.date.setText(newDateTime);
 
         //viewHolder.rank.setText(String.valueOf(position+1));
         switch (position) {
