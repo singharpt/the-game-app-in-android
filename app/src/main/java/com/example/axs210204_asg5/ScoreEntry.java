@@ -30,18 +30,13 @@ public class ScoreEntry extends AppCompatActivity {
     TextInputLayout dateLayout;
     TextInputLayout timeLayout;
     Calendar cal = Calendar.getInstance();
-
     private void saveBtnVisibility() {
         if (nameLayout.getHelperText() == "Satisfied" && scoreLayout.getHelperText() == "Satisfied") {
             findViewById(R.id.saveBtn).setVisibility(View.VISIBLE);
         }
-        else {
-            findViewById(R.id.saveBtn).setVisibility(View.INVISIBLE);
-        }
+        else { findViewById(R.id.saveBtn).setVisibility(View.INVISIBLE); }
     }
-    private String checkDigit(int number) {
-        return number <= 9 ? "0" + number : String.valueOf(number);
-    }
+    private String checkDigit(int number) { return number <= 9 ? "0" + number : String.valueOf(number); }
     private void openDateDialog() {
         DatePickerDialog dateDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -82,30 +77,38 @@ public class ScoreEntry extends AppCompatActivity {
         DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("yyyy/M/d H:m");
         DateTimeFormatter timeformatter = DateTimeFormatter.ofPattern("H:m");
         findViewById(R.id.saveBtn).setVisibility(View.INVISIBLE);
-
         nameToSend.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
                 String name = nameToSend.getText().toString();
-                if (b) {
-                    nameLayout.setHelperText("Enter name");
-                }
-                else {
+                if (!b) {
                     if (name.isEmpty()) {
                         nameLayout.setHelperText("");
                         nameLayout.setError("Name field can't be left empty!");
                     }
-                    else {
-                        nameLayout.setHelperText("Satisfied");
-                    }
+                    else { nameLayout.setHelperText("Satisfied");}
                 }
                 saveBtnVisibility();
             }
         });
+        nameToSend.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.toString().isEmpty()) {
+                    nameLayout.setHelperText("");
+                    nameLayout.setError("Name field can't be left empty!");
+                }
+                else { nameLayout.setHelperText("Satisfied");}
+                saveBtnVisibility();
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        });
         scoreToSend.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String score = charSequence.toString();
@@ -114,12 +117,8 @@ public class ScoreEntry extends AppCompatActivity {
                 try {
                     scoreValue = Integer.parseInt(score);
                     checkFlag = true;
-                } catch (NumberFormatException e) {
-                    checkFlag = false;
-                }
-                if (checkFlag && scoreValue > 0) {
-                    scoreLayout.setHelperText("Satisfied");
-                }
+                } catch (NumberFormatException e) { checkFlag = false; }
+                if (checkFlag && scoreValue > 0) { scoreLayout.setHelperText("Satisfied");}
                 else {
                     scoreLayout.setHelperText("");
                     scoreLayout.setError("Enter only digits greater than 0");
@@ -127,37 +126,28 @@ public class ScoreEntry extends AppCompatActivity {
                 saveBtnVisibility();
             }
             @Override
-            public void afterTextChanged(Editable editable) {
-            }
+            public void afterTextChanged(Editable editable) {}
         });
         dateToSend.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
                 //has focus
-                if (b) {
-                    openDateDialog();
-                }
+                if (b) { openDateDialog(); }
             }
         });
         dateToSend.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                openDateDialog();
-            }
+            public void onClick(View view) { openDateDialog(); }
         });
         timeToSend.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                openTimeDialog();
-            }
+            public void onClick(View view) { openTimeDialog(); }
         });
         timeToSend.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
                 //has focus
-                if (b) {
-                    openTimeDialog();
-                }
+                if (b) { openTimeDialog(); }
             }
         });
         findViewById(R.id.saveBtn).setOnClickListener(new View.OnClickListener() {
