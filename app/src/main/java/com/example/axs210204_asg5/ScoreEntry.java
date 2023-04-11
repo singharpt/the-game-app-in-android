@@ -58,7 +58,6 @@ public class ScoreEntry extends AppCompatActivity {
         }, cal.get(Calendar.HOUR), cal.get(Calendar.HOUR), true);
         timeDialog.show();
     }
-
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,12 +155,14 @@ public class ScoreEntry extends AppCompatActivity {
                 String  inputName = nameToSend.getText().toString();
                 String  inputScore = scoreToSend.getText().toString();
                 String  inputDateTime = dateToSend.getText().toString() + " " + timeToSend.getText().toString();
-                Intent intent = new Intent();
-                intent.putExtra(NEW_NAME, inputName);
-                intent.putExtra(NEW_SCORE, inputScore);
-                intent.putExtra(NEW_DATETIME, inputDateTime);
-                setResult(RESULT_OK, intent);
-                finish();
+                if (!inputName.isEmpty() && !inputScore.isEmpty()) {
+                    Intent intent = new Intent();
+                    intent.putExtra(NEW_NAME, inputName);
+                    intent.putExtra(NEW_SCORE, inputScore);
+                    intent.putExtra(NEW_DATETIME, inputDateTime);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
             }
         });
     }
