@@ -7,6 +7,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.StringTokenizer;
 /**
  * --> Written by Arpit Singh for class CS 6326, assignment 5 - The Android App. Net Id - AXS210204 <--
@@ -58,8 +59,10 @@ public class FileIO {
             FileOutputStream file = fileContext.openFileOutput("dataFile.txt", Activity.MODE_PRIVATE);
             OutputStreamWriter outputFile = new OutputStreamWriter(file);
             String text;
-            for (int i = 0; i < fileData.size(); i++) {
-                text = fileData.get(i).name.toString() + "\t" + String.valueOf(fileData.get(i).score) + "\t" + fileData.get(i).date.toString();
+            List<DataSchema> firstTwenty = fileData.subList(0, Math.min(fileData.size(), 20));
+            ArrayList<DataSchema> newList = new ArrayList<>(firstTwenty);
+            for (int i = 0; i < newList.size(); i++) {
+                text = newList.get(i).name.toString() + "\t" + String.valueOf(newList.get(i).score) + "\t" + newList.get(i).date.toString();
                 outputFile.write(text+"\n");
             }
             outputFile.flush();
