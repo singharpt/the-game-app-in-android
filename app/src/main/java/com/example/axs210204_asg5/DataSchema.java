@@ -26,14 +26,14 @@ public class DataSchema {
  * 2. If two scores are equal then it compares the datetime of both objects and return them in the order of earlier datatime first.
  */
 class DataComparator implements Comparator<DataSchema> {
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy H:m");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy h:m a");
     public int compare(DataSchema obj1, DataSchema obj2) {
         // first, compare by the int value in descending order
         int result = Integer.compare(obj2.score, obj1.score);
         // if the int values are equal, compare by the datetime value in descending order
         if (result == 0) {
-            LocalDateTime date1 = LocalDateTime.parse(obj1.date.split(" ")[0] + " " + obj1.date.split(" ")[1], formatter);
-            LocalDateTime date2 = LocalDateTime.parse(obj2.date.split(" ")[0] + " " + obj2.date.split(" ")[1], formatter);
+            LocalDateTime date1 = LocalDateTime.parse(obj1.date, formatter);
+            LocalDateTime date2 = LocalDateTime.parse(obj2.date, formatter);
             result = date2.compareTo(date1);
         }
         return result;
