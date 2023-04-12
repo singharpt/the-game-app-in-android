@@ -123,21 +123,21 @@ public class ScoreEntry extends AppCompatActivity {
 
         //Checks for data validation in the name input field field whenever the foccus enters it.
         //If user leaves the input field without entering anything, it changes the color to red and sets an error message.
-        nameToSend.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                String name = nameToSend.getText().toString();
-                if (!b) {
-                    if (name.isEmpty()) {
-                        nameLayout.setHelperText("");
-                        nameLayout.setError("Name field can't be left empty!");
-                    }
-                    else { nameLayout.setHelperText("Satisfied");}
-                }
-                //Calls this function to make save button visible if data is validated successfully.
-                saveBtnVisibility();
-            }
-        });
+//        nameToSend.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View view, boolean b) {
+//                String name = nameToSend.getText().toString();
+//                if (!b) {
+//                    if (name.isEmpty()) {
+//                        nameLayout.setHelperText("");
+//                        nameLayout.setError("Name field can't be left empty!");
+//                    }
+//                    else { nameLayout.setHelperText("Satisfied");}
+//                }
+//                //Calls this function to make save button visible if data is validated successfully.
+//                saveBtnVisibility();
+//            }
+//        });
 
         //Checks for data validation in the name input field field whenever user makes text changes.
         nameToSend.addTextChangedListener(new TextWatcher() {

@@ -24,7 +24,7 @@
             android:id="@+id/actionBarDisplayTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="10dp"
             android:layout_toEndOf="@id/leaderboardSign"
             android:text="@string/score_display_heading"
             android:layout_centerVertical="true"

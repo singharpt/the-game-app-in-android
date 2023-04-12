@@ -9,10 +9,12 @@
     <ImageView
         android:id="@+id/tvRank"
         android:layout_marginStart="15dp"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="35dp"
+        android:layout_marginEnd="5dp"
+        android:layout_height="35dp"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="3dp"
+        android:contentDescription="Rank Icon"
         android:src="@drawable/medal_gold_winner_2_svgrepo_com"/>
 
     <TextView
@@ -32,7 +34,7 @@
     <TextView
         android:id="@+id/tvDate"
         android:layout_width="120dp"
-        android:minWidth="120dp"
+        android:maxWidth="120dp"
         android:layout_height="wrap_content"
         android:text="Date"
         android:textAllCaps="true"

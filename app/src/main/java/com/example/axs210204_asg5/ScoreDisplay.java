@@ -50,11 +50,12 @@ public class ScoreDisplay extends AppCompatActivity {
         if (iobj.fileData.size() < 1) {
             //The line triggers the read file method from the FileIO class
             iobj.GetFileData(this.getApplicationContext());
+            System.out.println(iobj.fileData.size());
         }
 
         //The below two lines can clear data on an already present text file
-        //iobj.fileData.removeAll(iobj.fileData);
-        //iobj.WriteFileData(this.getApplicationContext());
+//        iobj.fileData.removeAll(iobj.fileData);
+//        iobj.WriteFileData(this.getApplicationContext());
 
         //The current load function will load data in the list
         onLoad();
