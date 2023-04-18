@@ -55,8 +55,13 @@ public class customGameView extends View {
         for(Balloons ballon1 : balloonsData){
             for (Balloons ballon2 : balloonsData) {
                 if (ballon1.ROI.intersect(ballon2.ROI)) {
-                    ballon1.incrementVelocity(2);
-                    ballon1.decrementVelocity(2);
+                    if(ballon1.balloonCorY < ballon2.balloonCorY){
+                        ballon1.incrementVelocity(2);
+                        ballon2.decrementVelocity(2);
+                    } else {
+                        ballon2.incrementVelocity(2);
+                        ballon1.decrementVelocity(2);
+                    }
                 }
             }
             ballon1.drawBalloon(canvas);
