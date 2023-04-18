@@ -19,7 +19,6 @@ import java.util.StringTokenizer;
  */
 public class FileIO {
     public ArrayList<DataSchema> fileData;
-    Context context;
 
     //Contructor for the class FileIO
     FileIO() {

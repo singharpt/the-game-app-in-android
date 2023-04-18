@@ -65,8 +65,10 @@ public class ScoreDisplay extends AppCompatActivity {
             //The method below instantiates the method startActivityForResult() between activities ScoreDisplay & ScoreEntry
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ScoreDisplay.this, ScoreEntry.class);
-                startActivityForResult(intent, REQ_CODE);
+//                Intent intent = new Intent(ScoreDisplay.this, ScoreEntry.class);
+//                startActivityForResult(intent, REQ_CODE);
+                Intent startGame = new Intent(getApplicationContext(),gamePlay.class);
+                startActivity(startGame);
             }
         });
     }
