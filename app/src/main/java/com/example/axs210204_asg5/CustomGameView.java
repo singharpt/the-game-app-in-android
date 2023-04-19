@@ -8,19 +8,21 @@ import java.util.ArrayList;
 import java.util.Random;
 import android.os.Handler;
 
-public class customGameView extends View {
+public class CustomGameView extends View {
     int state = 0;
+    Boolean istargetBallonSquare;
+    String targetBallonColor;
     public ArrayList<Balloons> balloonsData;
     int canvasHeight, canvasWidth;
     Handler handler;
     Random random = new Random();
 
-    public customGameView(Context context) {
+    public CustomGameView(Context context) {
         super(context);
         init(context);
     }
 
-    public customGameView(Context context, @Nullable AttributeSet attrs){
+    public CustomGameView(Context context, @Nullable AttributeSet attrs){
         super(context,attrs);
         init(context);
     }
@@ -28,6 +30,11 @@ public class customGameView extends View {
     public void init(Context context) {
         balloonsData = new ArrayList<Balloons>();
         handler = new Handler();
+    }
+
+    public void setTargetVariables(Boolean isShapeSquare, String color) {
+        this.istargetBallonSquare = isShapeSquare;
+        this.targetBallonColor = color;
     }
 
     @Override
@@ -55,13 +62,8 @@ public class customGameView extends View {
         for(Balloons ballon1 : balloonsData){
             for (Balloons ballon2 : balloonsData) {
                 if (ballon1.ROI.intersect(ballon2.ROI)) {
-                    if(ballon1.balloonCorY < ballon2.balloonCorY){
-                        ballon1.incrementVelocity(2);
-                        ballon2.decrementVelocity(2);
-                    } else {
-                        ballon2.incrementVelocity(2);
-                        ballon1.decrementVelocity(2);
-                    }
+                    ballon1.incrementVelocity(2);
+                    ballon2.decrementVelocity(2);
                 }
             }
             ballon1.drawBalloon(canvas);

@@ -2,4 +2,5 @@
     <string name="app_name">AXS210204-Asg5</string>
     <string name="score_display_heading">Leaderboard</string>
     <string name="score_entry_heading">Add New Score</string>
+    <string name="main_menu_heading">Balloon Pop Game</string>
 </resources>

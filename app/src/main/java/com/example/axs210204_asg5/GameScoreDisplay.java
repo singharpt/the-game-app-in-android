@@ -7,24 +7,23 @@ import android.view.View;
 import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 /**
  * --> Written by Arpit Singh for class CS 6326, assignment 5 - The Android App. Net Id - AXS210204 <--
- * The following class: ScoreDisplay does the following: -
+ * The following class: GameScoreDisplay does the following: -
  * 1. Initialises the FileIO class the has a data member ArrayList <Objects> and methods for read/write.
  * 2. Loads the data in the list view on application start
- * 3. Triggers the activity "ScoreEntry" when the add button is clicked
- * 4. Gets the result back from the "ScoreEntry" activity and adds it to the ArrayList of objects.
+ * 3. Triggers the activity "GameScoreEntry" when the add button is clicked
+ * 4. Gets the result back from the "GameScoreEntry" activity and adds it to the ArrayList of objects.
  * 5. Sorts the data in the ArrayList and display it back on the screen.
  * 5. Saves the data to the disk by using the write method in the FileIO class.
  */
-public class ScoreDisplay extends AppCompatActivity {
+public class GameScoreDisplay extends AppCompatActivity {
 
     //Variables Declarations
     private static final int REQ_CODE = 100; //This variable is used in startActivityForResult() function
     private static final FileIO iobj = new FileIO(); //Instantiated the object of FileIO Class
-    ListView listView; //The list view variable will be instantiated with the ListView element on ScoreDisplay Screen
+    ListView listView; //The list view variable will be instantiated with the ListView element on GameScoreDisplay Screen
 
     /**
      * This function loads the data present in the ArrayList <objects> "iobj.fileData" in the listView.
@@ -62,13 +61,13 @@ public class ScoreDisplay extends AppCompatActivity {
 
         //The function triggered when user clicks on the add button on the display
         findViewById(R.id.addBtn).setOnClickListener(new View.OnClickListener() {
-            //The method below instantiates the method startActivityForResult() between activities ScoreDisplay & ScoreEntry
+            //The method below instantiates the method startActivityForResult() between activities GameScoreDisplay & GameScoreEntry
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(ScoreDisplay.this, ScoreEntry.class);
-//                startActivityForResult(intent, REQ_CODE);
-                Intent startGame = new Intent(getApplicationContext(),gamePlay.class);
-                startActivity(startGame);
+                Intent intent = new Intent(GameScoreDisplay.this, GameScoreEntry.class);
+                startActivityForResult(intent, REQ_CODE);
+//                Intent startGame = new Intent(getApplicationContext(),GamePlayActivity.class);
+//                startActivity(startGame);
             }
         });
     }
@@ -82,9 +81,9 @@ public class ScoreDisplay extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQ_CODE) {
             if(resultCode == RESULT_OK){
-                if (data != null && data.getStringExtra(ScoreEntry.NEW_NAME) != null && data.getStringExtra(ScoreEntry.NEW_SCORE) != null && data.getStringExtra(ScoreEntry.NEW_DATETIME) != null) {
+                if (data != null && data.getStringExtra(GameScoreEntry.NEW_NAME) != null && data.getStringExtra(GameScoreEntry.NEW_SCORE) != null && data.getStringExtra(GameScoreEntry.NEW_DATETIME) != null) {
                     //Adds the new data in the ArrayList<objects> fileData using addData method of FileIO class
-                    iobj.AddData(new String[] {data.getStringExtra(ScoreEntry.NEW_NAME), data.getStringExtra(ScoreEntry.NEW_SCORE), data.getStringExtra(ScoreEntry.NEW_DATETIME)});
+                    iobj.AddData(new String[] {data.getStringExtra(GameScoreEntry.NEW_NAME), data.getStringExtra(GameScoreEntry.NEW_SCORE), data.getStringExtra(GameScoreEntry.NEW_DATETIME)});
                     //Refreshes the screen with new data
                     onLoad();
                     //Saves the data to the text file

@@ -16,18 +16,17 @@ import android.widget.TimePicker;
 import java.sql.Time;
 import java.text.Format;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 /**
  * --> Written by Arpit Singh for class CS 6326, assignment 5 - The Android App. Net Id - AXS210204 <--
- * The following class: ScoreEntry does the following: -
+ * The following class: GameScoreEntry does the following: -
  * 1. Sets current date & time in the date & time layout input fields on the display.
  * 2. Allow the user to input data in the nameLayout, scoreLayout and modify the data in dataLayout & timeLayout
  * 3. Checks for erros in the name & score data entered by user
  * 4. Upon validation of input data, makes the save button visible and allows the user to save the data entered.
- * 5. Sends the data back to ScoreDisplay activity.
+ * 5. Sends the data back to GameScoreDisplay activity.
  */
-public class ScoreEntry extends AppCompatActivity {
+public class GameScoreEntry extends AppCompatActivity {
     //Important variable declarations
     public static final String NEW_NAME = "name";
     public static final String NEW_SCORE = "score";
@@ -216,7 +215,7 @@ public class ScoreEntry extends AppCompatActivity {
 
         //When the save button is visible and the user clicks on it.
         //First, there is one if condition which again checks if all there is no null data.
-        //If data is valid it sends the data to the ScoreDisplay activity
+        //If data is valid it sends the data to the GameScoreDisplay activity
         findViewById(R.id.saveBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

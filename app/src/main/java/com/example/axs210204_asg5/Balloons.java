@@ -12,7 +12,8 @@ public class Balloons {
     public static final HashMap<String, Integer> colorsMap = new HashMap<String, Integer> ();
     RectF ROI;
     Boolean isBallonSqaure;
-    int balloonSize, balloonColor, balloonSpeed;
+    int balloonSize, balloonSpeed;
+    String balloonColor;
     float balloonCorX, balloonCorY;
     Paint paint = new Paint();
     Random random = new Random();
@@ -27,10 +28,14 @@ public class Balloons {
         colorsMap.put("White", Color.WHITE);
     }
 
-    public int returnRandomColor() {
+    public String returnRandomColor() {
         int index = random.nextInt(colorsMap.size());
         String key = (String) colorsMap.keySet().toArray()[index];
-        return colorsMap.get(key);
+        return key;
+    }
+
+    public Balloons(Context context){
+        InitiateColorsMap();
     }
 
     public Balloons(Context context, int canvasHeight, int canvasWidth, Boolean isballoonSquare){
@@ -38,7 +43,7 @@ public class Balloons {
         this.balloonSize = (int) convertToPixels(context.getApplicationContext(), random.nextInt((64-32)+1) + 32);
         this.isBallonSqaure = isballoonSquare;
         this.balloonColor = returnRandomColor();
-        this.paint.setColor(balloonColor);
+        this.paint.setColor(colorsMap.get(balloonColor));
         this.balloonCorY = canvasHeight + balloonSize;
         this.balloonCorX = random.nextInt(canvasWidth - balloonSize);
         this.balloonSpeed = random.nextInt((12-6)+1) + 5;
