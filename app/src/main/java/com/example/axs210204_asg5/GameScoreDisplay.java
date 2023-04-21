@@ -1,4 +1,5 @@
 package com.example.axs210204_asg5;
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -40,6 +41,11 @@ public class GameScoreDisplay extends AppCompatActivity {
         listView.setAdapter(listViewAdapter);
     }
 
+//    public void addNewScore(Context context) {
+//        Intent intent = new Intent(GameScoreDisplay.this, GameScoreEntry.class);
+//        startActivityForResult(intent, REQ_CODE);
+//    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,16 +66,14 @@ public class GameScoreDisplay extends AppCompatActivity {
         onLoad();
 
         //The function triggered when user clicks on the add button on the display
-        findViewById(R.id.addBtn).setOnClickListener(new View.OnClickListener() {
-            //The method below instantiates the method startActivityForResult() between activities GameScoreDisplay & GameScoreEntry
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(GameScoreDisplay.this, GameScoreEntry.class);
-                startActivityForResult(intent, REQ_CODE);
-//                Intent startGame = new Intent(getApplicationContext(),GamePlayActivity.class);
-//                startActivity(startGame);
-            }
-        });
+//        findViewById(R.id.addBtn).setOnClickListener(new View.OnClickListener() {
+//            //The method below instantiates the method startActivityForResult() between activities GameScoreDisplay & GameScoreEntry
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(GameScoreDisplay.this, GameScoreEntry.class);
+//                startActivityForResult(intent, REQ_CODE);
+//            }
+//        });
     }
 
     //For this method: -

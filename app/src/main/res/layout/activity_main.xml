@@ -16,7 +16,7 @@
         android:layout_centerHorizontal="true"
         android:textSize="18sp"
         android:padding="5dp"
-        android:background="@color/purple_200"
+        android:background="@android:color/holo_purple"
         android:textColor="@color/white"
         android:textFontWeight="500" />
 
@@ -29,7 +29,7 @@
         android:layout_centerHorizontal="true"
         android:textSize="18sp"
         android:padding="5dp"
-        android:background="@color/purple_200"
+        android:background="@android:color/holo_purple"
         android:textColor="@color/white"
         android:textFontWeight="500"/>
 

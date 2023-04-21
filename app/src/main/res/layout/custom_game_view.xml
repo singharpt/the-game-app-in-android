@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/gameInnstructions"
-    android:background="@color/white">
+    android:id="@+id/balloonGame"
+    android:background="@color/purple_200">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/instructions">
+        android:id="@+id/instructions"
+        android:background="@color/black">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -19,11 +20,12 @@
             android:id="@+id/instructionTv"
             android:layout_marginTop="300dp"
             android:layout_centerHorizontal="true"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:padding="10dp"
             android:textAlignment="center"
             android:textFontWeight="700"
-            android:background="@color/purple_200"
+            android:textStyle="bold"
+            android:background="@android:color/holo_purple"
             android:textColor="@color/white"/>
         <Button
             android:layout_width="wrap_content"
@@ -40,25 +42,27 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/whenGameStarts"
-        android:visibility="gone">
+        android:id="@+id/mainGame"
+        android:visibility="invisible">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="120dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints"
         android:id="@+id/gameInfoBar"
+        android:paddingTop="15dp"
         android:background="@color/black">
         <TextView
             android:id="@+id/scoreLabel"
             android:layout_width="wrap_content"
             android:minWidth="200dp"
             android:layout_height="50dp"
-            android:text="Score"
+            android:text="SCORE"
             android:textAlignment="center"
-            android:textSize="26sp"
+            android:textSize="22sp"
+            android:textStyle="bold"
             android:layout_marginEnd="10dp"
             android:padding="6dp"
             android:layout_alignParentLeft="true"
@@ -67,11 +71,12 @@
             android:id="@+id/timerLabel"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:text="Time Left"
+            android:text="TIME LEFT"
             android:minWidth="200dp"
+            android:textStyle="bold"
             tools:ignore="MissingConstraints"
             android:textAlignment="center"
-            android:textSize="26sp"
+            android:textSize="22sp"
             android:padding="6dp"
             android:layout_toEndOf="@+id/scoreLabel"
             android:textColor="@color/teal_200" />
@@ -82,7 +87,7 @@
             android:layout_height="50dp"
             android:text="0"
             android:textAlignment="center"
-            android:textSize="26sp"
+            android:textSize="22sp"
             android:layout_marginTop="50dp"
             android:layout_marginEnd="10dp"
             android:padding="6dp"
@@ -98,7 +103,7 @@
             android:layout_marginTop="50dp"
             tools:ignore="MissingConstraints"
             android:textAlignment="center"
-            android:textSize="26sp"
+            android:textSize="22sp"
             android:padding="6dp"
             android:layout_toEndOf="@+id/score"
             android:layout_alignParentBottom="@+id/timerLabel"
@@ -108,37 +113,66 @@
     <com.example.axs210204_asg5.CustomGameView
         android:id="@+id/customGameView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_constraintTop_toBottomOf="@+id/gameInfoBar"
         android:background="@color/black"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="130dp"
+        android:layout_marginBottom="10dp"/>
 
-<!--    <LinearLayout-->
-<!--        android:id="@+id/resultView"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="vertical"-->
-<!--        android:padding="10dp"-->
-<!--        android:visibility="invisible"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.5"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent">-->
+    <LinearLayout
+        android:id="@+id/gameOverMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-<!--        <TextView-->
-<!--            android:id="@+id/result"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginBottom="20dp"-->
-<!--            android:textAlignment="center"-->
-<!--            android:textAppearance="@style/TextAppearance.AppCompat.Large" />-->
+        <TextView
+            android:id="@+id/menuText"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:text=" GAME OVER "
+            android:textAlignment="center"
+            android:textSize="22sp"
+            android:padding="6dp"
+            android:textStyle="bold"
+            android:background="@color/red"
+            android:textColor="@color/white"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
-<!--        <Button-->
-<!--            android:id="@+id/viewScores"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="View high scores" />-->
-<!--    </LinearLayout>-->
+        <Button
+            android:id="@+id/saveScoreBtn"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="SAVE SCORE"
+            android:layout_marginLeft="40dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:backgroundTintMode="screen"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+        <Button
+            android:id="@+id/newGameBtn"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="PLAY AGAIN"
+            android:layout_marginLeft="40dp"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:backgroundTintMode="screen"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+    </LinearLayout>
+
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>
