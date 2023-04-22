@@ -6,12 +6,13 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.Random;
 
 public class Balloons {
     public HashMap<String, Integer> colorsMap = new HashMap<String, Integer> ();
     RectF ROI;
-    Boolean isBallonSqaure;
+    String balloonType;
     int balloonSize, balloonSpeed;
     String balloonColor;
     float balloonCorX, balloonCorY;
@@ -38,10 +39,10 @@ public class Balloons {
         InitiateColorsMap();
     }
 
-    public Balloons(Context context, int canvasHeight, int canvasWidth, Boolean isballoonSquare){
+    public Balloons(Context context, int canvasHeight, int canvasWidth, String balloonType){
         InitiateColorsMap();
         this.balloonSize = (int) convertToPixels(context.getApplicationContext(), random.nextInt(33) + 32);
-        this.isBallonSqaure = isballoonSquare;
+        this.balloonType = balloonType;
         this.balloonColor = returnRandomColor();
         this.paint.setColor(colorsMap.get(balloonColor));
         this.balloonCorY = canvasHeight + balloonSize;
@@ -51,7 +52,7 @@ public class Balloons {
     }
 
     void drawBalloon(Canvas canvas) {
-        if (this.isBallonSqaure) {
+        if (Objects.equals(this.balloonType, "Squares")) {
             canvas.drawRect(balloonCorX, balloonCorY - balloonSize, balloonCorX + balloonSize, balloonCorY, paint);
         }
         else{

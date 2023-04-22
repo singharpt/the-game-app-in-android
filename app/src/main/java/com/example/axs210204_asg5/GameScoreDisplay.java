@@ -22,8 +22,17 @@ import java.util.List;
 public class GameScoreDisplay extends AppCompatActivity {
 
     //Variables Declarations
-    private static final int REQ_CODE = 100; //This variable is used in startActivityForResult() function
-    private static final FileIO iobj = new FileIO(); //Instantiated the object of FileIO Class
+    private FileIO iobj = new FileIO();
+    //private static final int REQ_CODE = 100; //This variable is used in startActivityForResult() function
+//    public  GameScoreDisplay(){
+//        iobj = new FileIO(); //Instantiated the object of FileIO Class
+//    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, GameMainMenu.class);
+        startActivity(intent);
+        finish();
+    }
     ListView listView; //The list view variable will be instantiated with the ListView element on GameScoreDisplay Screen
 
     /**
@@ -31,14 +40,17 @@ public class GameScoreDisplay extends AppCompatActivity {
      * 1. It first sorts the data using a custom class DataComparator present inside the file DataSchema.java.
      * 2. Creates a new array list with the top 20 elements.
      * 3. Displays it on the screen using a custom array adapter present inside the file CustomerAdapter.java.
+     * 4. The data present in the arraylist is saved to the text file.
      */
     protected void onLoad(){
+        System.out.println(FileIO.fileData.size());
         listView = findViewById(R.id.mainlistView);
-        Collections.sort(iobj.fileData, new DataComparator());
-        List<DataSchema> firstTwenty = iobj.fileData.subList(0, Math.min(iobj.fileData.size(), 20));
+        Collections.sort(FileIO.fileData, new DataComparator());
+        List<DataSchema> firstTwenty = FileIO.fileData.subList(0, Math.min(FileIO.fileData.size(), 20));
         ArrayList<DataSchema> newList = new ArrayList<>(firstTwenty);
         CustomAdapter listViewAdapter = new CustomAdapter(getApplicationContext(), newList);
         listView.setAdapter(listViewAdapter);
+        iobj.WriteFileData(this.getApplicationContext());
     }
 
 //    public void addNewScore(Context context) {
@@ -51,12 +63,12 @@ public class GameScoreDisplay extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score_display);
 
-        //This if condition prevents data from being read mutilple times from the text file
-        if (iobj.fileData.size() < 1) {
-            //The line triggers the read file method from the FileIO class
-            iobj.GetFileData(this.getApplicationContext());
-            System.out.println(iobj.fileData.size());
-        }
+//        //This if condition prevents data from being read mutilple times from the text file
+//        if (FileIO.fileData.size() < 1) {
+//            //The line triggers the read file method from the FileIO class
+//            iobj.GetFileData(this.getApplicationContext());
+//            System.out.println(FileIO.fileData.size());
+//        }
 
         //The below two lines can clear data on an already present text file
 //        iobj.fileData.removeAll(iobj.fileData);
@@ -80,20 +92,20 @@ public class GameScoreDisplay extends AppCompatActivity {
     //Input - Intent variable instatiated between activities scoreDisplay & scoreEntry, & int resultCode which is 100.
     //Output - The new entered data of (Name, Score & Date).
     //On receiving the output the onLoad method is called and data is saved to the text file.
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQ_CODE) {
-            if(resultCode == RESULT_OK){
-                if (data != null && data.getStringExtra(GameScoreEntry.NEW_NAME) != null && data.getStringExtra(GameScoreEntry.NEW_SCORE) != null && data.getStringExtra(GameScoreEntry.NEW_DATETIME) != null) {
-                    //Adds the new data in the ArrayList<objects> fileData using addData method of FileIO class
-                    iobj.AddData(new String[] {data.getStringExtra(GameScoreEntry.NEW_NAME), data.getStringExtra(GameScoreEntry.NEW_SCORE), data.getStringExtra(GameScoreEntry.NEW_DATETIME)});
-                    //Refreshes the screen with new data
-                    onLoad();
-                    //Saves the data to the text file
-                    iobj.WriteFileData(this.getApplicationContext());
-                }
-            }
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == REQ_CODE) {
+//            if(resultCode == RESULT_OK){
+//                if (data != null && data.getStringExtra(GameScoreEntry.NEW_NAME) != null && data.getStringExtra(GameScoreEntry.NEW_SCORE) != null && data.getStringExtra(GameScoreEntry.NEW_DATETIME) != null) {
+//                    //Adds the new data in the ArrayList<objects> fileData using addData method of FileIO class
+//                    iobj.AddData(new String[] {data.getStringExtra(GameScoreEntry.NEW_NAME), data.getStringExtra(GameScoreEntry.NEW_SCORE), data.getStringExtra(GameScoreEntry.NEW_DATETIME)});
+//                    //Refreshes the screen with new data
+//                    onLoad();
+//                    //Saves the data to the text file
+//                    iobj.WriteFileData(this.getApplicationContext());
+//                }
+//            }
+//        }
+//    }
 }

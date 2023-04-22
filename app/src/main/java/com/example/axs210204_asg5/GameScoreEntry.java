@@ -28,9 +28,10 @@ import java.util.Calendar;
  */
 public class GameScoreEntry extends AppCompatActivity {
     //Important variable declarations
-    public static final String NEW_NAME = "name";
-    public static final String NEW_SCORE = "score";
-    public static final String NEW_DATETIME = "datetime";
+//    public static final String NEW_NAME = "name";
+//    public static final String NEW_SCORE = "score";
+//    public static final String NEW_DATETIME = "datetime";
+    private FileIO iobj = new FileIO();
     EditText nameToSend;
     EditText scoreToSend;
     EditText dateToSend;
@@ -41,9 +42,16 @@ public class GameScoreEntry extends AppCompatActivity {
     TextInputLayout timeLayout;
     Calendar cal = Calendar.getInstance();
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, GameMainMenu.class);
+        startActivity(intent);
+        finish();
+    }
+
     //This method makes the save button visible if user entered correct data for name & score.
     private void saveBtnVisibility() {
-        if (nameLayout.getHelperText() == "Satisfied" && scoreLayout.getHelperText() == "Satisfied") {
+        if (nameLayout.getHelperText() == "Satisfied") {
             findViewById(R.id.saveBtn).setVisibility(View.VISIBLE);
         }
         else { findViewById(R.id.saveBtn).setVisibility(View.INVISIBLE); }
@@ -99,6 +107,8 @@ public class GameScoreEntry extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score_entry);
 
+
+
         //The save button is made invisible so that use can't click it before entering valid data.
         findViewById(R.id.saveBtn).setVisibility(View.INVISIBLE);
 
@@ -111,6 +121,11 @@ public class GameScoreEntry extends AppCompatActivity {
         scoreLayout = findViewById(R.id.layoutScore);
         dateLayout = findViewById(R.id.layoutDate);
         timeLayout = findViewById(R.id.layoutTime);
+
+        //Get the new high score from the game screen
+        Intent intent = getIntent();
+        String newHighScore = intent.getStringExtra("Score");
+        scoreToSend.setText(newHighScore);
 
         //Gets the current date in the format mm/dd/yyyy and displays it on the date input field on screen.
         String fixDateText = checkDigit(cal.get(Calendar.MONTH)+1)+"/"+checkDigit(cal.get(Calendar.DAY_OF_MONTH))+"/"+checkDigit(cal.get(Calendar.YEAR));
@@ -159,29 +174,29 @@ public class GameScoreEntry extends AppCompatActivity {
         //Checks for data validation in the score input field field whenever user makes text changes
         //If user enters anything other than integer with values greater than 0
         //it changes the color of the input field to red and sets an error message.
-        scoreToSend.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String score = charSequence.toString();
-                boolean checkFlag = false;
-                int scoreValue = 0;
-                try {
-                    scoreValue = Integer.parseInt(score);
-                    checkFlag = true;
-                } catch (NumberFormatException e) { checkFlag = false; }
-                if (checkFlag && scoreValue > 0) { scoreLayout.setHelperText("Satisfied");}
-                else {
-                    scoreLayout.setHelperText("");
-                    scoreLayout.setError("Enter only digits greater than 0");
-                }
-                //Calls this function to make save button visible if data is validated successfully.
-                saveBtnVisibility();
-            }
-            @Override
-            public void afterTextChanged(Editable editable) {}
-        });
+//        scoreToSend.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                String score = charSequence.toString();
+//                boolean checkFlag = false;
+//                int scoreValue = 0;
+//                try {
+//                    scoreValue = Integer.parseInt(score);
+//                    checkFlag = true;
+//                } catch (NumberFormatException e) { checkFlag = false; }
+//                if (checkFlag && scoreValue > 0) { scoreLayout.setHelperText("Satisfied");}
+//                else {
+//                    scoreLayout.setHelperText("");
+//                    scoreLayout.setError("Enter only digits greater than 0");
+//                }
+//                //Calls this function to make save button visible if data is validated successfully.
+//                saveBtnVisibility();
+//            }
+//            @Override
+//            public void afterTextChanged(Editable editable) {}
+//        });
 
         //When the focus enters the date input field, this method opens up the date picker dialog on screen
         dateToSend.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -226,13 +241,19 @@ public class GameScoreEntry extends AppCompatActivity {
 
                 //Checks if data is not null null
                 if (!inputName.isEmpty() && !inputScore.isEmpty()) {
-                    Intent intent = new Intent();
-                    intent.putExtra(NEW_NAME, inputName);
-                    intent.putExtra(NEW_SCORE, inputScore);
-                    intent.putExtra(NEW_DATETIME, inputDateTime);
-                    //Sends the data to scoreDisplay activity
-                    setResult(RESULT_OK, intent);
-                    finish();
+//                    Intent intent = new Intent();
+//                    intent.putExtra(NEW_NAME, inputName);
+//                    intent.putExtra(NEW_SCORE, inputScore);
+//                    intent.putExtra(NEW_DATETIME, inputDateTime);
+//                    //Sends the data to scoreDisplay activity
+//                    setResult(RESULT_OK, intent);
+//                    finish();
+                    System.out.println(FileIO.fileData.size());
+                    iobj.AddData(new String[] {inputName, inputScore, inputDateTime});
+                    System.out.println(FileIO.fileData.size());
+                    Intent intent = new Intent(GameScoreEntry.this, GameScoreDisplay.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
                 }
             }
         });

@@ -18,12 +18,12 @@ import java.util.StringTokenizer;
  * 4. Contains method WriteFileData which writes the elements of fileData to the text file.
  */
 public class FileIO {
-    public ArrayList<DataSchema> fileData;
+    public final static ArrayList<DataSchema> fileData = new ArrayList<DataSchema>();;
 
     //Contructor for the class FileIO
-    FileIO() {
-        fileData = new ArrayList<DataSchema>();
-    }
+//    FileIO() {
+//        fileData = new ArrayList<DataSchema>();
+//    }
 
     //This method will read the data inside the text file "dataFile.txt" and store it in the arraylist of objects fileData
     public void GetFileData(Context fileContext) {

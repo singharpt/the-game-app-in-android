@@ -17,6 +17,14 @@ public class GamePlayActivity extends AppCompatActivity {
     Balloons balloonObj;
     Random random = new Random();
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, GameMainMenu.class);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.custom_game_view);

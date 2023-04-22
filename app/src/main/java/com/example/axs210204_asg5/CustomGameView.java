@@ -17,8 +17,8 @@ import android.widget.TextView;
 
 public class CustomGameView extends View {
     boolean gameRunning;
-    int balloonsHit, balloonsMiss;
-    Boolean istargetBallonSquare;
+    int score, balloonsHit, balloonsMiss;
+    String targetBalloonType;
     String targetBallonColor;
     public ArrayList<Balloons> balloonsList;
     public ArrayList<Balloons> dumpBalloonsList;
@@ -51,12 +51,7 @@ public class CustomGameView extends View {
         gameRunning = false;
         balloonsHit = 0;
         balloonsMiss = 0;
-    }
-
-    public CustomGameView(Context context, Boolean isShapeSquare, String color) {
-        super(context);
-        this.istargetBallonSquare = isShapeSquare;
-        this.targetBallonColor = color;
+        score = 0;
     }
 
     @Override
@@ -73,15 +68,18 @@ public class CustomGameView extends View {
                 // check if touched balloon is the correct balloon
                 if (touchedBalloon != null) {
                     //if(touchedBalloon.color == currentColor && ((currentShape && touchedBalloon instanceof Square) || (!currentShape && touchedBalloon instanceof Circle))){
-                    if (Objects.equals(touchedBalloon.balloonColor, this.targetBallonColor) && touchedBalloon.isBallonSqaure.toString().equals(this.istargetBallonSquare.toString())) {
-                        balloonsHit++;
+                    if (Objects.equals(touchedBalloon.balloonColor, this.targetBallonColor) && Objects.equals(touchedBalloon.balloonType, this.targetBalloonType)) {
+                        score++; //increment score if correct balloon
                     } else {
-                        System.out.println(touchedBalloon.balloonColor + " "+ targetBallonColor + " " + touchedBalloon.isBallonSqaure + " "+ istargetBallonSquare);
-                        balloonsHit--; //decrement score if wrong balloon
+                        System.out.println(touchedBalloon.balloonColor + " "+ targetBallonColor + " " + touchedBalloon.balloonType + " "+ targetBalloonType);
+                        score--; //decrement score if wrong balloon
                     }
 
+                    //increment if a ballon is hit
+                    balloonsHit++;
+
                     //update score
-                    scoreTv.setText(String.valueOf(balloonsHit));
+                    scoreTv.setText(String.valueOf(score));
 
                     //if 10 balloons popped the add 10s to the timer
 
@@ -99,6 +97,7 @@ public class CustomGameView extends View {
 
     @Override
     public void onDraw(Canvas canvas){
+
         super.onDraw(canvas);
         timeTv = getRootView().findViewById(R.id.timer);
         scoreTv = getRootView().findViewById(R.id.score);
@@ -108,7 +107,7 @@ public class CustomGameView extends View {
         instructionTv = getRootView().findViewById(R.id.instructionTv);
         String[] instructionTvText = instructionTv.getText().toString().split(" ");
         targetBallonColor = instructionTvText[2];
-        istargetBallonSquare = ((instructionTvText[4]=="Squares") ? true : false);
+        targetBalloonType = instructionTvText[4];
         canvasHeight = getHeight();
         canvasWidth = getWidth();
         int balloonsRange = random.nextInt(7)+6;
@@ -117,10 +116,10 @@ public class CustomGameView extends View {
             while (i < balloonsRange) {
                 int temp = random.nextInt(9) + 9;
                 if (temp % 2 == 0){
-                    balloonsList.add(new Balloons(getContext(), canvasHeight, canvasWidth, true));
+                    balloonsList.add(new Balloons(getContext(), canvasHeight, canvasWidth, "Squares"));
                 }
                 else {
-                    balloonsList.add(new Balloons(getContext(), canvasHeight, canvasWidth, false));
+                    balloonsList.add(new Balloons(getContext(), canvasHeight, canvasWidth, "Circles"));
                 }
                 i += 1;
             }
@@ -149,8 +148,8 @@ public class CustomGameView extends View {
             //add disappeared balloons to dump list
             for(Balloons b : balloonsList){
                 if(b.balloonCorY <= 0 || b.balloonCorY > canvasHeight + b.balloonSize){
-                    if(b.balloonColor == targetBallonColor && b.isBallonSqaure == istargetBallonSquare){
-                        balloonsHit++;
+                    if(Objects.equals(b.balloonColor, targetBallonColor) && Objects.equals(b.balloonType, targetBalloonType)){
+                        balloonsMiss++;
                     }
                     //add current balloon to dump balloon list
                     dumpBalloonsList.add(b);
@@ -166,10 +165,10 @@ public class CustomGameView extends View {
             for(int i=0; i < balloonsRange - balloonsList.size() ; i++){
                 int temp = random.nextInt(9) + 9;
                 if (temp % 2 == 0){
-                    balloonsList.add(new Balloons(getContext(), canvasHeight, canvasWidth, true));
+                    balloonsList.add(new Balloons(getContext(), canvasHeight, canvasWidth, "Squares"));
                 }
                 else {
-                    balloonsList.add(new Balloons(getContext(), canvasHeight, canvasWidth, false));
+                    balloonsList.add(new Balloons(getContext(), canvasHeight, canvasWidth, "Circles"));
                 }
             }
         }
@@ -192,19 +191,24 @@ public class CustomGameView extends View {
             }
             public void onFinish() {
                 timeTv.setText( "00:00");
-                scoreTv.setText(String.valueOf(balloonsHit));
+                scoreTv.setText(String.valueOf(score));
                 gameRunning = false;
                 gameOverMenu.setVisibility(VISIBLE);
                 saveScore.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Intent intent = new Intent(getContext(), GameScoreEntry.class);
+                        intent.putExtra("Score", String.valueOf(score));
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        getContext().startActivity(intent);
                     }
                 });
                 newGame.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent i = new Intent(getContext(), GamePlayActivity.class);
-                        getContext().startActivity(i);
+                        Intent intent = new Intent(getContext(), GamePlayActivity.class);
+                        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        getContext().startActivity(intent);
                     }
                 });
             }
