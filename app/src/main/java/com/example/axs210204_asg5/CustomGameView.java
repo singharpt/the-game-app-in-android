@@ -32,7 +32,7 @@ public class CustomGameView extends View {
     //Defining important class variables.
     boolean gameRunning;
     Handler handler;
-    int score, currentHighScore, correctBalloonHit, totalBalloonsHit, balloonsMiss, canvasHeight, canvasWidth;
+    int score, currentHighScore, correctBalloonHit, balloonsMiss, canvasHeight, canvasWidth;
     String targetBalloonType, targetBalloonColor;
     ArrayList<Balloons> balloonsList, dumpBalloonsList;
     TextView scoreTv, timeTv, instructionTv, gameFinishText;
@@ -59,7 +59,6 @@ public class CustomGameView extends View {
         handler = new Handler(); //Instantiates the new handler.
         gameTime = 60000; // Sets game time to 60 seconds.
         gameRunning = false; // Sets gameRunning flag to false.
-        totalBalloonsHit = 0;
         correctBalloonHit = 0;
         balloonsMiss = 0;
         score = 0;
@@ -94,10 +93,9 @@ public class CustomGameView extends View {
                         } else {
                             score--;
                         }
-                        totalBalloonsHit++;
                         scoreTv.setText(String.valueOf(score));
                         dumpBalloonsList.add(b);
-                        if (timer != null && totalBalloonsHit % 10 == 0 && totalBalloonsHit != 0) {
+                        if (timer != null && correctBalloonHit % 10 == 0 && correctBalloonHit != 0) {
                             timer.cancel();
                             initiateTimer(currentTime + 10000);
                         }
