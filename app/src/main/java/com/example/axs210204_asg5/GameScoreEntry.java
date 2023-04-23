@@ -21,17 +21,14 @@ import java.util.Calendar;
  * --> Written by Arpit Singh for class CS 6326, assignment 5 - The Android App. Net Id - AXS210204 <--
  * The following class: GameScoreEntry does the following: -
  * 1. Sets current date & time in the date & time layout input fields on the display.
- * 2. Allow the user to input data in the nameLayout, scoreLayout and modify the data in dataLayout & timeLayout
- * 3. Checks for erros in the name & score data entered by user
+ * 2. Allow the user to input data in the nameLayout and modify the data in dataLayout & timeLayout.
+ * 3. Checks for errors in the name entered by user.
  * 4. Upon validation of input data, makes the save button visible and allows the user to save the data entered.
  * 5. Sends the data back to GameScoreDisplay activity.
  */
 public class GameScoreEntry extends AppCompatActivity {
-    //Important variable declarations
-//    public static final String NEW_NAME = "name";
-//    public static final String NEW_SCORE = "score";
-//    public static final String NEW_DATETIME = "datetime";
-    private FileIO iobj = new FileIO();
+
+    private final FileIO iobj = new FileIO();
     EditText nameToSend;
     EditText scoreToSend;
     EditText dateToSend;
@@ -59,7 +56,7 @@ public class GameScoreEntry extends AppCompatActivity {
 
     //This method converts the 24 hour format time to 12 hour format
     //Input - Takes in two int values Hours & Mins.
-    //Ouput - Writtens a string values with format --> HH:MM AM/PM
+    //Output - Writes a string values with format --> HH:MM AM/PM
     private String getTime(int hr,int min) {
         Time tme = new Time(hr,min,0);//seconds by default set to zero
         Format formatter;
@@ -107,8 +104,6 @@ public class GameScoreEntry extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score_entry);
 
-
-
         //The save button is made invisible so that use can't click it before entering valid data.
         findViewById(R.id.saveBtn).setVisibility(View.INVISIBLE);
 
@@ -135,7 +130,7 @@ public class GameScoreEntry extends AppCompatActivity {
         String fixTimeText = checkDigit(cal.get(Calendar.HOUR))+":"+checkDigit(cal.get(Calendar.MINUTE))+" "+checkAMPM(cal.get(Calendar.AM_PM));
         timeToSend.setText(fixTimeText);
 
-        //Checks for data validation in the name input field field whenever the foccus enters it.
+        //Checks for data validation in the name input field field whenever the focus enters it.
         //If user leaves the input field without entering anything, it changes the color to red and sets an error message.
 //        nameToSend.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 //            @Override
@@ -241,18 +236,8 @@ public class GameScoreEntry extends AppCompatActivity {
 
                 //Checks if data is not null null
                 if (!inputName.isEmpty() && !inputScore.isEmpty()) {
-//                    Intent intent = new Intent();
-//                    intent.putExtra(NEW_NAME, inputName);
-//                    intent.putExtra(NEW_SCORE, inputScore);
-//                    intent.putExtra(NEW_DATETIME, inputDateTime);
-//                    //Sends the data to scoreDisplay activity
-//                    setResult(RESULT_OK, intent);
-//                    finish();
-                    System.out.println(FileIO.fileData.size());
                     iobj.AddData(new String[] {inputName, inputScore, inputDateTime});
-                    System.out.println(FileIO.fileData.size());
                     Intent intent = new Intent(GameScoreEntry.this, GameScoreDisplay.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 }
             }

@@ -15,23 +15,30 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+/**
+ * --> Written by Arpit Singh for class CS 6326, assignment 5 - The Android App. Net Id - AXS210204 <--
+ * The following class: CustomGameView does the following: -
+ * 1. Instantiates all the game variables such as score, array list to hold all balloon objects, gameRunning flags, and more.
+ * 2. Gets the current high score from the database.
+ * 3. Contains method to process balloon popping & score counting.
+ * 4. Contains the onDraw() method that draws balloons on the screen continuously every 0.01 second using a handler.
+ * 5. Showcases options after game ends, and navigates to other activities as per user selection.
+ */
+
 public class CustomGameView extends View {
+
+    //Defining important class variables.
     boolean gameRunning;
-    int score, balloonsHit, balloonsMiss;
-    String targetBalloonType;
-    String targetBallonColor;
-    public ArrayList<Balloons> balloonsList;
-    public ArrayList<Balloons> dumpBalloonsList;
-    int canvasHeight, canvasWidth;
     Handler handler;
-    TextView scoreTv, timeTv;
+    int score, currentHighScore, balloonsHit, balloonsMiss, canvasHeight, canvasWidth;
+    String targetBalloonType, targetBalloonColor;
+    ArrayList<Balloons> balloonsList, dumpBalloonsList;
+    TextView scoreTv, timeTv, instructionTv, gameFinishText;
     Button saveScore, newGame;
     LinearLayout gameOverMenu;
-    long currentTime;
-    long gameTime;
+    long currentTime, gameTime;
     CountDownTimer timer;
     Random random = new Random();
-    TextView instructionTv;
 
     public CustomGameView(Context context) {
         super(context);
@@ -43,51 +50,52 @@ public class CustomGameView extends View {
         init(context);
     }
 
+    //Instantiates some important game variables.
     public void init(Context context) {
         balloonsList = new ArrayList<Balloons>();
         dumpBalloonsList = new ArrayList<Balloons>();
-        handler = new Handler();
-        gameTime = 6000;
-        gameRunning = false;
+        handler = new Handler(); //Instantiates the new handler.
+        gameTime = 60000; // Sets game time to 60 seconds.
+        gameRunning = false; // Sets gameRunning flag to false.
         balloonsHit = 0;
         balloonsMiss = 0;
         score = 0;
+        currentHighScore = 0;
     }
 
+    //The function gets the current high score by looping over the database, and sets it to the variable currentHighScore.
+    public void getHighScore() {
+        for (DataSchema obj : FileIO.fileData) {
+            if (obj.score > currentHighScore) {
+                currentHighScore = obj.score;
+            }
+        }
+    }
+
+    //This function is called everytime user touches the screen.
+    //First, it checks if user touched a balloon or not.
+    //Second, it checks if user touched the target balloon.
+    //If Yes, then it increments the score and if no, it decrements the score and displays the score on the screen.
+    //Third, it keeps track of all the balloon user popped, if the user pops 10 balloons it adds 10 seconds to the timer.
+    //Finally, all the popped balloons are added to the dumpBalloonList, so that they could be removed from our balloonsList.
     @Override
     public boolean onTouchEvent(MotionEvent event){
         if(gameRunning) {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                Balloons touchedBalloon = null;
-                //Check if a balloon is touched and add it to the list
                 for (Balloons b : balloonsList) {
                     if (b.balloonCorX < event.getX() && event.getX() < b.balloonCorX + b.balloonSize && b.balloonCorY > event.getY() && event.getY() > b.balloonCorY - b.balloonSize) {
-                        touchedBalloon = b;
-                    }
-                }
-                // check if touched balloon is the correct balloon
-                if (touchedBalloon != null) {
-                    //if(touchedBalloon.color == currentColor && ((currentShape && touchedBalloon instanceof Square) || (!currentShape && touchedBalloon instanceof Circle))){
-                    if (Objects.equals(touchedBalloon.balloonColor, this.targetBallonColor) && Objects.equals(touchedBalloon.balloonType, this.targetBalloonType)) {
-                        score++; //increment score if correct balloon
-                    } else {
-                        System.out.println(touchedBalloon.balloonColor + " "+ targetBallonColor + " " + touchedBalloon.balloonType + " "+ targetBalloonType);
-                        score--; //decrement score if wrong balloon
-                    }
-
-                    //increment if a ballon is hit
-                    balloonsHit++;
-
-                    //update score
-                    scoreTv.setText(String.valueOf(score));
-
-                    //if 10 balloons popped the add 10s to the timer
-
-                    balloonsList.remove(touchedBalloon);
-                    if (timer != null && balloonsHit % 10 == 0 && balloonsHit != 0) {
-                        timer.cancel();
-                        initiateTimer(currentTime + 10000);
-                        //timeTv.setText("+10s");
+                        if (Objects.equals(b.balloonColor, this.targetBalloonColor) && Objects.equals(b.balloonType, this.targetBalloonType)) {
+                            score++;
+                        } else {
+                            score--;
+                        }
+                        balloonsHit++;
+                        scoreTv.setText(String.valueOf(score));
+                        dumpBalloonsList.add(b);
+                        if (timer != null && balloonsHit % 10 == 0 && balloonsHit != 0) {
+                            timer.cancel();
+                            initiateTimer(currentTime + 10000);
+                        }
                     }
                 }
             }
@@ -97,20 +105,31 @@ public class CustomGameView extends View {
 
     @Override
     public void onDraw(Canvas canvas){
-
         super.onDraw(canvas);
+
+        //Initiating screen elements into variables
         timeTv = getRootView().findViewById(R.id.timer);
         scoreTv = getRootView().findViewById(R.id.score);
         gameOverMenu = getRootView().findViewById(R.id.gameOverMenu);
         saveScore = getRootView().findViewById(R.id.saveScoreBtn);
         newGame = getRootView().findViewById(R.id.newGameBtn);
         instructionTv = getRootView().findViewById(R.id.instructionTv);
+        gameFinishText = getRootView().findViewById(R.id.gameFinishText);
+
+        //Getting target balloon type (Square, Circle) & color.
         String[] instructionTvText = instructionTv.getText().toString().split(" ");
-        targetBallonColor = instructionTvText[2];
+        targetBalloonColor = instructionTvText[2];
         targetBalloonType = instructionTvText[4];
+
+        //Getting height & width of the game screen
         canvasHeight = getHeight();
         canvasWidth = getWidth();
+
+        //Balloons on the screen should be in a range of 6-12
         int balloonsRange = random.nextInt(7)+6;
+
+        //If game is not running, add 6-12 balloons objects in the balloonsList
+        //Set the gameRunning flag to true
         if (!gameRunning && balloonsList.size() == 0) {
             int i = 0;
             while (i < balloonsRange) {
@@ -127,9 +146,13 @@ public class CustomGameView extends View {
             gameRunning = true;
         }
 
+        //If game is running we do 3 main operations
+        //First, we check if no balloon overlap. If it happens, we change the speed of the balloons overlapping & draw them on the screen.
+        //Second, as soon as balloon disappears on the screen add a new balloon to the screen. We also count the no of target balloons user missed.
+        //Third, remove the disappeared or popped balloons from the balloonsList.
         if (gameRunning) {
 
-            //Check if balloons overlap
+            //First, checking if any balloon overlaps
             for(Balloons b1 : balloonsList){
                 for (Balloons b2 : balloonsList) {
                     if (b1.ROI.intersect(b2.ROI)) {
@@ -142,13 +165,15 @@ public class CustomGameView extends View {
                         }
                     }
                 }
+                //After changing the speed of overlapping balloons, we draw all the balloons on the screen.
                 b1.drawBalloon(canvas);
             }
 
-            //add disappeared balloons to dump list
+            //Second, adding disappeared balloons to dumpBalloonsList
             for(Balloons b : balloonsList){
                 if(b.balloonCorY <= 0 || b.balloonCorY > canvasHeight + b.balloonSize){
-                    if(Objects.equals(b.balloonColor, targetBallonColor) && Objects.equals(b.balloonType, targetBalloonType)){
+                    //Counting if user missed any target balloon that disappeared
+                    if(Objects.equals(b.balloonColor, targetBalloonColor) && Objects.equals(b.balloonType, targetBalloonType)){
                         balloonsMiss++;
                     }
                     //add current balloon to dump balloon list
@@ -156,12 +181,12 @@ public class CustomGameView extends View {
                 }
             }
 
-            //remove disappeared balloons from balloons list
+            //Third, removing disappeared balloons from balloonsList
             for(Balloons b : dumpBalloonsList){
                 balloonsList.remove(b);
             }
 
-            //create new random balloons when they are popped or disappear
+            //Also, creating new balloons to take place of popped & disappeared balloons
             for(int i=0; i < balloonsRange - balloonsList.size() ; i++){
                 int temp = random.nextInt(9) + 9;
                 if (temp % 2 == 0){
@@ -173,7 +198,7 @@ public class CustomGameView extends View {
             }
         }
 
-        //This function keeps calling onDraw() function every 0.01 sec
+        //The handler keeps calling onDraw() function every 0.01 sec.
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -182,7 +207,10 @@ public class CustomGameView extends View {
         },10);
     }
 
-    //timer function
+    //This function initiates the timer and displays time left on the screen.
+    //When the timer ends, it brings up the game over view that has 2 functions depending on user's high score.
+    //If user creates a new high score it lets user save that score.
+    //Otherwise, the second option allows the user to play new game.
     public void initiateTimer(long time){
         timer = new CountDownTimer(time, 1000){
             public void onTick(long millisUntilDone){
@@ -194,23 +222,28 @@ public class CustomGameView extends View {
                 scoreTv.setText(String.valueOf(score));
                 gameRunning = false;
                 gameOverMenu.setVisibility(VISIBLE);
-                saveScore.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getContext(), GameScoreEntry.class);
-                        intent.putExtra("Score", String.valueOf(score));
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        getContext().startActivity(intent);
-                    }
-                });
+                getHighScore();
+
                 newGame.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getContext(), GamePlayActivity.class);
-                        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         getContext().startActivity(intent);
                     }
                 });
+
+                if (score > currentHighScore) {
+                    gameFinishText.setText(" NEW HIGH SCORE ");
+                    saveScore.setVisibility(VISIBLE);
+                    saveScore.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getContext(), GameScoreEntry.class);
+                            intent.putExtra("Score", String.valueOf(score));
+                            getContext().startActivity(intent);
+                        }
+                    });
+                }
             }
         }.start();
     }

@@ -20,11 +20,6 @@ import java.util.StringTokenizer;
 public class FileIO {
     public final static ArrayList<DataSchema> fileData = new ArrayList<DataSchema>();;
 
-    //Contructor for the class FileIO
-//    FileIO() {
-//        fileData = new ArrayList<DataSchema>();
-//    }
-
     //This method will read the data inside the text file "dataFile.txt" and store it in the arraylist of objects fileData
     public void GetFileData(Context fileContext) {
         File file = fileContext.getFileStreamPath("dataFile.txt");

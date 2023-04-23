@@ -29,7 +29,7 @@ public class CustomAdapter extends ArrayAdapter<DataSchema> {
     }
 
     public CustomAdapter(Context context, ArrayList<DataSchema> users) {
-        super(context, R.layout.custom_listview_layout, users);
+        super(context, R.layout.custom_listview_layout_better, users);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class CustomAdapter extends ArrayAdapter<DataSchema> {
             // If there's no view to re-use, inflate a brand new view for row
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.custom_listview_layout, parent, false);
+            convertView = inflater.inflate(R.layout.custom_listview_layout_better, parent, false);
             viewHolder.name = (TextView) convertView.findViewById(R.id.tvName);
             viewHolder.score = (TextView) convertView.findViewById(R.id.tvScore);
             viewHolder.date = (TextView) convertView.findViewById(R.id.tvDate);

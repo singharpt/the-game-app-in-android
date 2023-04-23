@@ -6,60 +6,60 @@
     android:paddingBottom="16dp"
     android:background="@android:color/background_light">
 
-    <ImageView
-        android:id="@+id/tvRank"
-        android:layout_marginStart="15dp"
-        android:layout_width="35dp"
-        android:layout_marginEnd="5dp"
-        android:layout_height="35dp"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="3dp"
-        android:contentDescription="Rank Icon"
-        android:src="@drawable/medal_gold_winner_2_svgrepo_com"/>
+<!--    <ImageView-->
+<!--        android:id="@+id/tvRank"-->
+<!--        android:layout_marginStart="15dp"-->
+<!--        android:layout_width="35dp"-->
+<!--        android:layout_marginEnd="5dp"-->
+<!--        android:layout_height="35dp"-->
+<!--        android:layout_alignParentStart="true"-->
+<!--        android:layout_marginTop="3dp"-->
+<!--        android:contentDescription="Rank Icon"-->
+<!--        android:src="@drawable/medal_gold_winner_2_svgrepo_com"/>-->
 
-    <TextView
-        android:id="@+id/tvName"
-        android:layout_width="100dp"
-        android:maxWidth="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5.5dp"
-        android:layout_toEndOf="@+id/tvRank"
-        android:textAllCaps="true"
-        android:text="Name"
-        android:textAppearance="@style/CardView"
-        android:textFontWeight="600"
-        android:textSize="14sp" />
+<!--    <TextView-->
+<!--        android:id="@+id/tvName"-->
+<!--        android:layout_width="100dp"-->
+<!--        android:maxWidth="100dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="10dp"-->
+<!--        android:layout_marginTop="5.5dp"-->
+<!--        android:layout_toEndOf="@+id/tvRank"-->
+<!--        android:textAllCaps="true"-->
+<!--        android:text="Name"-->
+<!--        android:textAppearance="@style/CardView"-->
+<!--        android:textFontWeight="600"-->
+<!--        android:textSize="14sp" />-->
 
-    <TextView
-        android:id="@+id/tvDate"
-        android:layout_width="120dp"
-        android:maxWidth="120dp"
-        android:layout_height="wrap_content"
-        android:text="Date"
-        android:textAllCaps="true"
-        android:layout_marginStart="10dp"
-        android:textAppearance="@style/CardView"
-        android:layout_marginTop="5.5dp"
-        android:layout_toStartOf="@id/tvScore"
-        android:layout_toEndOf="@id/tvName"
-        android:textSize="14sp"
-        android:textFontWeight="600" />
+<!--    <TextView-->
+<!--        android:id="@+id/tvDate"-->
+<!--        android:layout_width="120dp"-->
+<!--        android:maxWidth="120dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Date"-->
+<!--        android:textAllCaps="true"-->
+<!--        android:layout_marginStart="10dp"-->
+<!--        android:textAppearance="@style/CardView"-->
+<!--        android:layout_marginTop="5.5dp"-->
+<!--        android:layout_toStartOf="@id/tvScore"-->
+<!--        android:layout_toEndOf="@id/tvName"-->
+<!--        android:textSize="14sp"-->
+<!--        android:textFontWeight="600" />-->
 
-    <TextView
-        android:id="@+id/tvScore"
-        android:layout_width="70dp"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/CardView"
-        android:minWidth="70dp"
-        android:text="Score"
-        android:textAllCaps="true"
-        android:textAlignment="viewEnd"
-        android:layout_marginStart="10dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="5.5dp"
-        android:textSize="14sp"
-        android:textFontWeight="600"
-        android:layout_marginEnd="20dp"/>
+<!--    <TextView-->
+<!--        android:id="@+id/tvScore"-->
+<!--        android:layout_width="70dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textAppearance="@style/CardView"-->
+<!--        android:minWidth="70dp"-->
+<!--        android:text="Score"-->
+<!--        android:textAllCaps="true"-->
+<!--        android:textAlignment="viewEnd"-->
+<!--        android:layout_marginStart="10dp"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_marginTop="5.5dp"-->
+<!--        android:textSize="14sp"-->
+<!--        android:textFontWeight="600"-->
+<!--        android:layout_marginEnd="20dp"/>-->
 
 </RelativeLayout>
