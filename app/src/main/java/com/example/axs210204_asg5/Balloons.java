@@ -29,6 +29,7 @@ public class Balloons {
     Paint paint = new Paint();
     Random random = new Random();
 
+    //This function adds colors data to the colorsMap Hashmap
     public void InitiateColorsMap() {
         colorsMap.put("Red", Color.RED);
         colorsMap.put("Orange", Color.rgb(255, 165, 0));
@@ -39,6 +40,7 @@ public class Balloons {
         colorsMap.put("White", Color.WHITE);
     }
 
+    //This function selects a random color from the colorsMap and returns it
     public String returnRandomColor() {
         int index = random.nextInt(colorsMap.size());
         String key = (String) colorsMap.keySet().toArray()[index];
@@ -49,7 +51,7 @@ public class Balloons {
         InitiateColorsMap();
     }
 
-    //Constructor to initialize all the properties of a balloon.
+    //Constructor to initialize all the properties of a balloon with random colors
     public Balloons(Context context, int canvasHeight, int canvasWidth, String balloonType) {
         InitiateColorsMap();
         this.balloonSize = (int) convertToPixels(context.getApplicationContext(), random.nextInt(33) + 32);
@@ -58,7 +60,7 @@ public class Balloons {
         this.paint.setColor(colorsMap.get(balloonColor));
         this.balloonCorY = canvasHeight + balloonSize;
         this.balloonCorX = random.nextInt(canvasWidth - balloonSize);
-        this.balloonSpeed = random.nextInt(10) + 5;
+        this.balloonSpeed = random.nextInt(12) + 5;
         this.ROI = new RectF(balloonCorX, balloonCorY-balloonSize, balloonCorX+balloonSize, balloonCorY);
     }
 

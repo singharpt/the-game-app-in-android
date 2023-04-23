@@ -52,9 +52,8 @@ public class GameScoreDisplay extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score_display);
 
-//        The below two lines can clear data on an already present text file
-//        iobj.fileData.removeAll(iobj.fileData);
-//        iobj.WriteFileData(this.getApplicationContext());
+        //The below line can clear data on an already present text file
+//        FileIO.fileData.removeAll(FileIO.fileData);
 
         //The current load function will load data in the list
         onLoad();

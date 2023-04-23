@@ -1,7 +1,9 @@
 package com.example.axs210204_asg5;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -30,7 +32,7 @@ public class CustomGameView extends View {
     //Defining important class variables.
     boolean gameRunning;
     Handler handler;
-    int score, currentHighScore, balloonsHit, balloonsMiss, canvasHeight, canvasWidth;
+    int score, currentHighScore, correctBalloonHit, totalBalloonsHit, balloonsMiss, canvasHeight, canvasWidth;
     String targetBalloonType, targetBalloonColor;
     ArrayList<Balloons> balloonsList, dumpBalloonsList;
     TextView scoreTv, timeTv, instructionTv, gameFinishText;
@@ -57,7 +59,8 @@ public class CustomGameView extends View {
         handler = new Handler(); //Instantiates the new handler.
         gameTime = 60000; // Sets game time to 60 seconds.
         gameRunning = false; // Sets gameRunning flag to false.
-        balloonsHit = 0;
+        totalBalloonsHit = 0;
+        correctBalloonHit = 0;
         balloonsMiss = 0;
         score = 0;
         currentHighScore = 0;
@@ -78,6 +81,7 @@ public class CustomGameView extends View {
     //If Yes, then it increments the score and if no, it decrements the score and displays the score on the screen.
     //Third, it keeps track of all the balloon user popped, if the user pops 10 balloons it adds 10 seconds to the timer.
     //Finally, all the popped balloons are added to the dumpBalloonList, so that they could be removed from our balloonsList.
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event){
         if(gameRunning) {
@@ -86,13 +90,14 @@ public class CustomGameView extends View {
                     if (b.balloonCorX < event.getX() && event.getX() < b.balloonCorX + b.balloonSize && b.balloonCorY > event.getY() && event.getY() > b.balloonCorY - b.balloonSize) {
                         if (Objects.equals(b.balloonColor, this.targetBalloonColor) && Objects.equals(b.balloonType, this.targetBalloonType)) {
                             score++;
+                            correctBalloonHit++;
                         } else {
                             score--;
                         }
-                        balloonsHit++;
+                        totalBalloonsHit++;
                         scoreTv.setText(String.valueOf(score));
                         dumpBalloonsList.add(b);
-                        if (timer != null && balloonsHit % 10 == 0 && balloonsHit != 0) {
+                        if (timer != null && totalBalloonsHit % 10 == 0 && totalBalloonsHit != 0) {
                             timer.cancel();
                             initiateTimer(currentTime + 10000);
                         }
@@ -103,9 +108,11 @@ public class CustomGameView extends View {
         return super.onTouchEvent(event);
     }
 
+    @SuppressLint("DrawAllocation")
     @Override
     public void onDraw(Canvas canvas){
         super.onDraw(canvas);
+        //System.out.println(balloonsList.size());
 
         //Initiating screen elements into variables
         timeTv = getRootView().findViewById(R.id.timer);
@@ -213,13 +220,16 @@ public class CustomGameView extends View {
     //Otherwise, the second option allows the user to play new game.
     public void initiateTimer(long time){
         timer = new CountDownTimer(time, 1000){
+            @SuppressLint("SetTextI18n")
             public void onTick(long millisUntilDone){
-                timeTv.setText( String.valueOf(millisUntilDone / 1000) + "s");
+                timeTv.setText(millisUntilDone / 1000 + "s");
                 currentTime=millisUntilDone;
             }
+            @SuppressLint("SetTextI18n")
             public void onFinish() {
                 timeTv.setText( "00:00");
-                scoreTv.setText(String.valueOf(score));
+                String finalScoreText = score + "/" + (correctBalloonHit + balloonsMiss);
+                scoreTv.setText(finalScoreText);
                 gameRunning = false;
                 gameOverMenu.setVisibility(VISIBLE);
                 getHighScore();
@@ -234,6 +244,7 @@ public class CustomGameView extends View {
 
                 if (score > currentHighScore) {
                     gameFinishText.setText(" NEW HIGH SCORE ");
+                    gameFinishText.setBackgroundColor(Color.rgb(0,200,0));
                     saveScore.setVisibility(VISIBLE);
                     saveScore.setOnClickListener(new OnClickListener() {
                         @Override
