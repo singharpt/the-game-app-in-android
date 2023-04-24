@@ -54,7 +54,7 @@ public class GamePlayActivity extends AppCompatActivity {
         String shape = ((isTargetShapeSquare) ? "Squares" : "Circles");
 
         //Set the target color and shape as display on the instruction page.
-        String instructions = "choose only " + targetBallonColor + " colored " + shape;
+        String instructions = "pop only " + targetBallonColor + " colored " + shape;
         instructionsTv.setText(instructions);
 
         //Set the color of instructions textview as the target color

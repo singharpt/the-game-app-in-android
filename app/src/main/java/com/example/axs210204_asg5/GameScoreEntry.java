@@ -239,6 +239,7 @@ public class GameScoreEntry extends AppCompatActivity {
                     iobj.AddData(new String[] {inputName, inputScore, inputDateTime});
                     Intent intent = new Intent(GameScoreEntry.this, GameScoreDisplay.class);
                     startActivity(intent);
+                    finish();
                 }
             }
         });

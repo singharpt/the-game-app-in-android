@@ -17,6 +17,11 @@ public class GameMainMenu extends AppCompatActivity {
     private final FileIO iobj = new FileIO();
 
     @Override
+    public void onBackPressed() {
+        finish();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -32,12 +37,14 @@ public class GameMainMenu extends AppCompatActivity {
         findViewById(R.id.startGameBtn).setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), GamePlayActivity.class);
             startActivity(intent);
+            finish();
         });
 
         //When user presses the start game button it starts the GameScoreDisplay activity which displays the leaderboard.
         findViewById(R.id.viewLeaderboardBtn).setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), GameScoreDisplay.class);
             startActivity(intent);
+            finish();
         });
     }
 }

@@ -1,5 +1,6 @@
 package com.example.axs210204_asg5;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
@@ -30,6 +31,7 @@ import android.widget.TextView;
 public class CustomGameView extends View {
 
     //Defining important class variables.
+    Context mContext;
     boolean gameRunning;
     Handler handler;
     int score, currentHighScore, correctBalloonHit, balloonsMiss, canvasHeight, canvasWidth;
@@ -54,6 +56,7 @@ public class CustomGameView extends View {
 
     //Instantiates some important game variables.
     public void init(Context context) {
+        mContext = context;
         balloonsList = new ArrayList<Balloons>();
         dumpBalloonsList = new ArrayList<Balloons>();
         handler = new Handler(); //Instantiates the new handler.
@@ -250,6 +253,7 @@ public class CustomGameView extends View {
                             Intent intent = new Intent(getContext(), GameScoreEntry.class);
                             intent.putExtra("Score", String.valueOf(score));
                             getContext().startActivity(intent);
+                            ((Activity)mContext).finish();
                         }
                     });
                 }
