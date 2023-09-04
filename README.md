@@ -12,17 +12,26 @@ Tech Stack: **👉** JAVA, Android Studio, Object Oriented Programming, Multithr
 
 **Here's a walkthrough of the game:**
 
-👉<img src='https://github.com/singharpt/windows-record-manager/blob/main/data-entry-video.gif' title='Data Entry Application Walkthrough' width='' alt='Video Walkthrough' />
+👉<img src='https://github.com/singharpt/the-game-app-in-android/blob/main/android-game-gif.gif' title='Android Game Walkthrough' width='' alt='Video Walkthrough' />
 
 ## Notes
 
  **👉 Features Implemented**
+ 
+- Pop balloons to earn points.
+- +1 point for each correct balloon popped.
+- -1 point penalty for each incorrect balloon popped.
+- Gameplay duration: 60 seconds (20 seconds in the walkthrough video).
+- Save High Scores: Players can save their high scores.
+- Replay Option: If users don't achieve a high score, they can play again.
+- Leaderboard: Displays the top 20 results.
+- Sorting: Results are sorted by the highest score first, and if scores are tied, the earlier date is ranked higher.
 
-- Users can play the balloon pop game and pop as many ballons as they can.
-- If they create a high score, they will be provided with an option to save score.
-- If the user is not able to create a high score, they are asked to play again.
-- Leaderboard displays the top 20 results.
-- Order of the results are sorted in the order of highest score first and if same scores then earlier date first.
+**👉 Installation**
+
+- Clone this repository.
+- Open the project in Android Studio.
+- Build and run the game on your Android device or emulator.
 
 ## License
 
