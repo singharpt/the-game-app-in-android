@@ -10,7 +10,6 @@ Tech Stack: **👉 JAVA, Android Studio, Object Oriented Programming, Multithrea
 
 ## Video Walkthrough
 
-**Here's a walkthrough of the game:**
 <img src='https://github.com/singharpt/the-game-app-in-android/blob/main/android-game-gif.gif' title='Android Game Walkthrough' width='' alt='Video Walkthrough' />
 
 ## Notes
