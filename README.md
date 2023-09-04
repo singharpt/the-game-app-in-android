@@ -2,7 +2,7 @@
 
 Submitted by: **👉 Arpit Singh**
 
-About this web app: **👉 Created a multithreaded Android game where users pop balloons and compete for high scores as a fun project that combines game development, user interaction, and competition. **
+About this web app: **👉 Created a multithreaded Android game where users pop balloons and compete for high scores as a fun project that combines game development, user interaction, and competition.**
 
 Time spent: **👉 40** hours with no experience in Android and beginner level experience in JAVA.
 
@@ -11,8 +11,7 @@ Tech Stack: **👉** JAVA, Android Studio, Object Oriented Programming, Multithr
 ## Video Walkthrough
 
 **Here's a walkthrough of the game:**
-
-👉<img src='https://github.com/singharpt/the-game-app-in-android/blob/main/android-game-gif.gif' title='Android Game Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://github.com/singharpt/the-game-app-in-android/blob/main/android-game-gif.gif' title='Android Game Walkthrough' width='' alt='Video Walkthrough' />
 
 ## Notes
 
