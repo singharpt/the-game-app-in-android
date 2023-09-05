@@ -1,6 +1,6 @@
 # WELCOME TO THE GAME APP
 
-**Submitted by**👉 Arpit Singh
+**Submitted by** 👉 Arpit Singh
 
 **About this web app**👉 Created a multithreaded Android game where users pop balloons and compete for high scores as a fun project that combines game development, user interaction, and competition.
 
