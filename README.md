@@ -6,7 +6,7 @@
 
 **Time spent 👉 40** hours with no experience in Android and beginner level experience in JAVA.
 
-**Tech Stack 👉** JAVA, Android Studio, Object Oriented Programming, Multithreading**
+**Tech Stack 👉** JAVA, Android Studio, Object Oriented Programming, Multithreading
 
 ## Video Walkthrough
 
