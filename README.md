@@ -8,7 +8,7 @@
 
 **Tech Stack 👉** JAVA, Android Studio, Object Oriented Programming, Multithreading
 
-## Video Walkthrough
+## Video Walkthrough (Wait for the gif to load)
 
 <img src='https://github.com/singharpt/the-game-app-in-android/blob/main/android-game-gif.gif' title='Android Game Walkthrough' width='' alt='Video Walkthrough' />
 
